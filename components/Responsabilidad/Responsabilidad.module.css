@@ -1,0 +1,139 @@
+.section {
+  background: var(--burdeo-oscuro);
+  padding: var(--space-20) 0;
+}
+
+.inner {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+/* Age warning banner */
+.header {
+  display: flex;
+  justify-content: center;
+}
+
+.ageWarning {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(201,161,93,0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-8);
+  max-width: 700px;
+  width: 100%;
+}
+
+.ageBadge {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--dorado);
+  flex-shrink: 0;
+  border: 2px solid var(--dorado);
+  border-radius: var(--radius-md);
+  padding: 4px 10px;
+  line-height: 1;
+}
+
+.ageWarning p {
+  font-size: 0.9375rem;
+  color: var(--marfil);
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* Content */
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: var(--space-12);
+  align-items: start;
+}
+
+.textCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.titleAccent {
+  color: var(--dorado);
+  font-style: italic;
+}
+
+.text {
+  color: rgba(248,245,239,0.75);
+}
+
+/* Pillars */
+.pillarsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.pillar {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(201,161,93,0.12);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-base);
+}
+
+.pillar:hover {
+  border-color: rgba(201,161,93,0.3);
+}
+
+.pillarIcon {
+  width: 50px;
+  height: 50px;
+  background: rgba(201,161,93,0.1);
+  border: 1px solid rgba(201,161,93,0.2);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dorado);
+  flex-shrink: 0;
+}
+
+.pillarTitle {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--marfil);
+  margin-bottom: var(--space-2);
+}
+
+.pillarText {
+  color: rgba(248,245,239,0.65);
+}
+
+@media (max-width: 900px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+}
+
+@media (max-width: 640px) {
+  .pillarsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .ageWarning {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--space-5);
+  }
+}

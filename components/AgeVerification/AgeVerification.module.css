@@ -1,0 +1,115 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  backdrop-filter: blur(6px);
+}
+
+.modal {
+  background: #111111;
+  border: 1px solid rgba(201, 161, 93, 0.3);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10) var(--space-10);
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.6), inset 0 0 80px rgba(106,15,29,0.08);
+}
+
+.topLine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--dorado), transparent);
+}
+
+.badgeWrapper {
+  margin-top: var(--space-2);
+}
+
+.badge {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid var(--dorado);
+  background: rgba(201,161,93,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge span {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--dorado);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.brandText {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dorado);
+  letter-spacing: -0.02em;
+}
+
+.brandSub {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gris);
+  margin-top: 4px;
+}
+
+.title {
+  color: var(--marfil);
+}
+
+.text {
+  color: var(--gris-light);
+  max-width: 360px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  margin-top: var(--space-2);
+}
+
+.confirmBtn,
+.denyBtn {
+  width: 100%;
+  justify-content: center;
+}
+
+.disclaimer {
+  font-size: 0.75rem;
+  color: var(--gris);
+  line-height: 1.5;
+  max-width: 340px;
+  padding-top: var(--space-2);
+  border-top: 1px solid rgba(201,161,93,0.1);
+}

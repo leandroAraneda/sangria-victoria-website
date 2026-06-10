@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { useCart } from '@/lib/CartContext'
-import Cart from '@/components/Cart/Cart'
 import styles from './Header.module.css'
 
 const navLinks = [
@@ -145,8 +144,6 @@ export default function Header() {
       {mobileOpen && (
         <div className={styles.overlay} onClick={closeMobile} aria-hidden="true" />
       )}
-
-      <Cart />
     </>
   )
 }
