@@ -2,6 +2,23 @@
   background: #0a0a0a;
   border-top: 1px solid rgba(201,161,93,0.15);
   padding: var(--space-16) 0 var(--space-8);
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(
+    to bottom,
+    rgba(17, 8, 14, 0.4) 0%,
+    rgba(17, 8, 14, 0) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
 }
 
 .container {
@@ -182,4 +199,79 @@
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+/* Light mode styles */
+[data-theme="light"] .footer {
+  background: #FAF4E3;
+  border-top: 1px solid rgba(232, 155, 45, 0.3);
+}
+
+[data-theme="light"] .footer::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(232, 155, 45, 0.08) 0%,
+    rgba(232, 155, 45, 0) 100%
+  );
+}
+
+[data-theme="light"] .logoSub {
+  color: rgba(42, 26, 10, 0.6);
+}
+
+[data-theme="light"] .logoText {
+  color: #B57520;
+}
+
+[data-theme="light"] .tagline {
+  color: var(--text-secondary);
+}
+
+[data-theme="light"] .socialLink {
+  border: 1px solid rgba(232, 155, 45, 0.4);
+  color: var(--text-secondary);
+  background: #FFFFFF;
+}
+
+[data-theme="light"] .socialLink:hover {
+  border-color: var(--dorado);
+  color: #B57520;
+  background: rgba(232, 155, 45, 0.08);
+}
+
+[data-theme="light"] .colTitle {
+  color: #B57520;
+}
+
+[data-theme="light"] .navLink {
+  color: var(--text-secondary);
+}
+
+[data-theme="light"] .navLink:hover {
+  color: #B57520;
+}
+
+[data-theme="light"] .addressText {
+  color: var(--text-secondary);
+}
+
+[data-theme="light"] .divider {
+  background: rgba(232, 155, 45, 0.25);
+}
+
+[data-theme="light"] .copyright {
+  color: var(--text-secondary);
+}
+
+[data-theme="light"] .legalLink {
+  color: var(--text-secondary);
+}
+
+[data-theme="light"] .legalLink:hover {
+  color: #B57520;
+}
+
+[data-theme="light"] .ageNote {
+  color: #B57520;
+  opacity: 1;
 }

@@ -110,7 +110,7 @@ export default function Experiencia() {
           className={styles.header}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{}}
           transition={{ duration: 0.7 }}
         >
           <div className="gold-divider">
@@ -133,7 +133,7 @@ export default function Experiencia() {
               role="listitem"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{}}
               transition={{ delay: idx * 0.08, duration: 0.6 }}
               whileHover={{ y: -6, scale: 1.02 }}
             >

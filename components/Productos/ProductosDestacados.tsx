@@ -1,14 +1,28 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useCart } from '@/lib/CartContext'
 import { products } from '@/lib/data'
 import styles from './ProductosDestacados.module.css'
 
 export default function ProductosDestacados() {
+  const router = useRouter()
   const { addItem } = useCart()
+  const [notification, setNotification] = useState<string | null>(null)
+
+  const handleAddToCart = (product: typeof products[0]) => {
+    addItem(product, 1, false)
+    setNotification(`${product.shortName} agregado al carrito`)
+    setTimeout(() => setNotification(null), 2500)
+  }
+
+  const handleBuy = (product: typeof products[0]) => {
+    addItem(product, 1, true)
+  }
 
   return (
     <section id="productos" className={styles.section} aria-labelledby="productos-title">
@@ -18,7 +32,7 @@ export default function ProductosDestacados() {
           className={styles.header}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{}}
           transition={{ duration: 0.7 }}
         >
           <div className="gold-divider">
@@ -42,14 +56,21 @@ export default function ProductosDestacados() {
               role="listitem"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{}}
               transition={{ delay: idx * 0.1, duration: 0.7 }}
-              whileHover={{ y: -8 }}
+              whileHover={{ y: -6 }}
+              onClick={() => router.push(`/productos/${product.id}`)}
             >
               {/* Badge */}
               {product.badge && (
                 <div className={`${styles.badge} ${product.isNew ? styles.badgeNew : product.isBestSeller ? styles.badgeBest : styles.badgePremium}`}>
                   {product.badge}
+                </div>
+              )}
+
+              {product.discount && (
+                <div className={styles.discountBadge} aria-label={`${product.discount}% de descuento`}>
+                  -{product.discount}%
                 </div>
               )}
 
@@ -62,26 +83,18 @@ export default function ProductosDestacados() {
                   style={{ objectFit: 'cover' }}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
-                <div className={styles.imageOverlay} aria-hidden="true">
-                  <Link
-                    href={`/productos/${product.id}`}
-                    className={`btn btn-secondary ${styles.viewBtn}`}
-                    aria-label={`Ver detalle de ${product.name}`}
-                  >
-                    Ver Detalle
-                  </Link>
-                </div>
               </div>
 
-              {/* Info */}
-              <div className={styles.info}>
+              {/* Card body */}
+              <div className={styles.cardBody}>
                 <div className={styles.meta}>
-                  <span className={styles.format}>{product.format}</span>
-                  <span className={styles.alcohol}>{product.alcohol}</span>
+                  <span className={styles.category}>{product.category}</span>
+                  <span className={styles.format}>{product.format} · {product.alcohol}</span>
                 </div>
 
-                <h3 className={`heading-sm ${styles.name}`}>{product.shortName}</h3>
-                <p className={styles.tagline}>{product.tagline}</p>
+                <Link href={`/productos/${product.id}`} className={styles.nameLink}>
+                  <h3 className={styles.productName}>{product.shortName}</h3>
+                </Link>
 
                 {/* Flavor notes */}
                 <div className={styles.flavors} aria-label="Notas de sabor">
@@ -92,8 +105,8 @@ export default function ProductosDestacados() {
                   ))}
                 </div>
 
-                {/* Price */}
-                <div className={styles.pricing}>
+                {/* Price row */}
+                <div className={styles.priceRow}>
                   <div className={styles.prices}>
                     {product.originalPrice && (
                       <span className={styles.originalPrice}>
@@ -104,32 +117,37 @@ export default function ProductosDestacados() {
                       ${product.price.toLocaleString('es-CL')}
                     </span>
                   </div>
-                  {product.discount && (
-                    <span className={styles.discount}>-{product.discount}%</span>
-                  )}
                 </div>
 
                 {/* Actions */}
-                <div className={styles.actions}>
+                <div className={styles.cardActions}>
                   <button
-                    className={`btn btn-primary ${styles.addBtn}`}
-                    onClick={() => addItem(product)}
+                    className={`btn ${styles.addBtn}`}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleAddToCart(product)
+                    }}
                     aria-label={`Agregar ${product.shortName} al carrito`}
                   >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                      <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-                      <line x1="3" y1="6" x2="21" y2="6"/>
-                      <path d="M16 10a4 4 0 0 1-8 0"/>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                      <line x1="12" y1="5" x2="12" y2="19"/>
+                      <line x1="5" y1="12" x2="19" y2="12"/>
                     </svg>
-                    Agregar
+                    Agregar al carrito
                   </button>
-                  <Link
-                    href={`/productos/${product.id}`}
-                    className={`btn btn-secondary ${styles.detailBtn}`}
-                    aria-label={`Ver detalle de ${product.name}`}
+                  <button
+                    className={`btn btn-primary ${styles.buyBtn}`}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleBuy(product)
+                    }}
+                    aria-label={`Comprar ${product.shortName} ahora`}
                   >
-                    Detalle
-                  </Link>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                    Comprar
+                  </button>
                 </div>
               </div>
             </motion.article>
@@ -141,7 +159,7 @@ export default function ProductosDestacados() {
           className={styles.cta}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{}}
           transition={{ delay: 0.3 }}
         >
           <Link href="/ventas" className="btn btn-burdeo">
@@ -149,6 +167,27 @@ export default function ProductosDestacados() {
           </Link>
         </motion.div>
       </div>
+
+      {/* Toast notification */}
+      <AnimatePresence>
+        {notification && (
+          <motion.div
+            key={notification}
+            className={styles.toast}
+            initial={{ opacity: 0, x: -100, y: 0 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            exit={{ opacity: 0, x: -100 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            role="status"
+            aria-live="polite"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>{notification}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

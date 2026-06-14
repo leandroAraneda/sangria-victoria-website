@@ -93,9 +93,11 @@ export default function Cart() {
                         />
                       </div>
                       <div className={styles.itemInfo}>
-                        <p className={styles.itemName}>{item.product.shortName}</p>
-                        <p className={styles.itemFormat}>{item.product.format}</p>
-                        <p className={styles.itemPrice}>{formatCLP(item.product.price * item.quantity)}</p>
+                        <div className={styles.itemDetails}>
+                          <p className={styles.itemName}>{item.product.shortName}</p>
+                          <p className={styles.itemFormat}>{item.product.format}</p>
+                          <p className={styles.itemPrice}>{formatCLP(item.product.price * item.quantity)}</p>
+                        </div>
                         <div className={styles.qtyRow}>
                           <button
                             className={styles.qtyBtn}

@@ -14,7 +14,7 @@ interface CartState {
 }
 
 type CartAction =
-  | { type: 'ADD_ITEM'; product: Product; quantity?: number }
+  | { type: 'ADD_ITEM'; product: Product; quantity?: number; openCart?: boolean }
   | { type: 'REMOVE_ITEM'; productId: string }
   | { type: 'UPDATE_QUANTITY'; productId: string; quantity: number }
   | { type: 'CLEAR_CART' }
@@ -28,7 +28,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       if (existing) {
         return {
           ...state,
-          isOpen: true,
+          isOpen: action.openCart !== false ? true : state.isOpen,
           items: state.items.map((i) =>
             i.product.id === action.product.id
               ? { ...i, quantity: i.quantity + (action.quantity ?? 1) }
@@ -38,7 +38,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       }
       return {
         ...state,
-        isOpen: true,
+        isOpen: action.openCart !== false ? true : state.isOpen,
         items: [...state.items, { product: action.product, quantity: action.quantity ?? 1 }],
       }
     }
@@ -74,7 +74,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
 interface CartContextValue {
   items: CartItem[]
   isOpen: boolean
-  addItem: (product: Product, quantity?: number) => void
+  addItem: (product: Product, quantity?: number, openCart?: boolean) => void
   removeItem: (productId: string) => void
   updateQuantity: (productId: string, quantity: number) => void
   clearCart: () => void
@@ -91,8 +91,8 @@ const CartContext = createContext<CartContextValue | null>(null)
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, { items: [], isOpen: false })
 
-  const addItem = (product: Product, quantity = 1) =>
-    dispatch({ type: 'ADD_ITEM', product, quantity })
+  const addItem = (product: Product, quantity = 1, openCart = true) =>
+    dispatch({ type: 'ADD_ITEM', product, quantity, openCart })
   const removeItem = (productId: string) => dispatch({ type: 'REMOVE_ITEM', productId })
   const updateQuantity = (productId: string, quantity: number) =>
     dispatch({ type: 'UPDATE_QUANTITY', productId, quantity })

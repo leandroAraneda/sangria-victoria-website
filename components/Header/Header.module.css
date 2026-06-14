@@ -13,11 +13,40 @@
 }
 
 .scrolled {
-  background-color: rgba(17, 11, 15, 0.95);
+  background-color: var(--header-scrolled-bg, rgba(17, 11, 15, 0.95));
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
-  border-bottom: 1px solid rgba(201, 161, 93, 0.15);
+  border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="light"] .scrolled {
+  background-color: rgba(250, 244, 227, 0.95);
+  box-shadow: 0 4px 24px rgba(196, 74, 42, 0.1);
+  border-bottom: 1px solid rgba(232, 155, 45, 0.3);
+}
+
+/* En modo claro, el header scrolled tiene fondo crema,
+   por lo que el texto debe ser oscuro */
+[data-theme="light"] .scrolled .logoSub {
+  color: #2A1A0A;
+}
+
+[data-theme="light"] .scrolled .navLink {
+  color: rgba(42, 26, 10, 0.85);
+}
+
+[data-theme="light"] .scrolled .menuLine {
+  background-color: #2A1A0A;
+}
+
+[data-theme="light"] .scrolled .cartBtn {
+  color: #2A1A0A;
+}
+
+[data-theme="light"] .scrolled .themeToggle {
+  color: #2A1A0A;
+  border-color: rgba(232, 155, 45, 0.5);
 }
 
 .container {
@@ -75,7 +104,7 @@
   font-family: var(--font-heading);
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--marfil);
+  color: #F8F5EF;
   letter-spacing: 0.02em;
 }
 
@@ -100,7 +129,7 @@
   font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.04em;
-  color: rgba(248, 245, 239, 0.85);
+  color: rgba(248, 245, 239, 0.92);
   text-decoration: none;
   padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-sm);
@@ -130,6 +159,7 @@
   border-radius: var(--radius-sm);
   padding: 2px 6px;
   letter-spacing: 0.05em;
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .cartBtn {
@@ -139,7 +169,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  color: var(--marfil);
+  color: #F8F5EF;
   border-radius: var(--radius-sm);
   transition: color var(--transition-fast), background-color var(--transition-fast);
   cursor: pointer;
@@ -150,6 +180,32 @@
   background-color: rgba(201, 161, 93, 0.1);
 }
 
+.themeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: #F8F5EF;
+  background-color: transparent;
+  border: 1px solid rgba(201, 161, 93, 0.4);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.themeToggle:hover {
+  color: var(--dorado);
+  background-color: rgba(232, 155, 45, 0.1);
+  border-color: var(--dorado);
+  transform: rotate(20deg);
+}
+
+.themeToggle svg {
+  transition: transform var(--transition-base);
+}
+
 .cartCount {
   position: absolute;
   top: 2px;
@@ -157,7 +213,7 @@
   width: 18px;
   height: 18px;
   background-color: var(--burdeo-premium);
-  color: var(--marfil);
+  color: #FFFFFF;
   font-size: 0.625rem;
   font-weight: 700;
   border-radius: 50%;
@@ -165,6 +221,7 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
+  transition: background-color 0.3s ease;
 }
 
 .buyBtn {
@@ -190,7 +247,7 @@
   display: block;
   width: 100%;
   height: 2px;
-  background-color: var(--marfil);
+  background-color: #F8F5EF;
   border-radius: 2px;
   transition: all var(--transition-base);
   transform-origin: center;
@@ -216,14 +273,18 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(17, 8, 14, 0.98);
+  background-color: var(--mobile-menu-bg, rgba(17, 8, 14, 0.98));
   backdrop-filter: blur(12px);
   z-index: 999;
   transform: translateX(100%);
-  transition: transform var(--transition-base);
+  transition: transform var(--transition-base), background-color 0.3s ease;
   overflow-y: auto;
   padding: var(--space-8) var(--space-6);
-  border-top: 1px solid rgba(201, 161, 93, 0.2);
+  border-top: 1px solid var(--border-color);
+}
+
+[data-theme="light"] .mobileMenu {
+  background-color: rgba(250, 244, 227, 0.98);
 }
 
 .mobileMenuOpen {
@@ -264,10 +325,10 @@
   font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--marfil);
+  color: var(--text-primary);
   text-decoration: none;
   padding: var(--space-3) 0;
-  border-bottom: 1px solid rgba(201, 161, 93, 0.1);
+  border-bottom: 1px solid var(--border-color);
   transition: color var(--transition-fast);
 }
 
@@ -277,11 +338,36 @@
 
 .mobileCta {
   margin-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 }
 
 .mobileCta .btn {
   width: 100%;
   justify-content: center;
+}
+
+.mobileThemeToggle {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  background-color: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  width: 100%;
+}
+
+.mobileThemeToggle:hover {
+  background-color: var(--surface-hover);
+  border-color: var(--dorado);
+  color: var(--dorado);
 }
 
 /* ===== OVERLAY ===== */

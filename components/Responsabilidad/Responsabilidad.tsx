@@ -16,8 +16,8 @@ const pillars = [
   {
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-        <path d="M2 22 16 8M3.5 6.5C5.5 2 12 2 16 6c4 4 4 10.5 0.5 12.5"/>
-        <path d="M21.5 21.5C9 23 3 17 3 7"/>
+        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+        <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
       </svg>
     ),
     title: 'Compromiso Ambiental',
@@ -38,8 +38,8 @@ const pillars = [
   {
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M12 16v-4M12 8h.01"/>
+        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+        <circle cx="12" cy="12" r="3"/>
       </svg>
     ),
     title: 'Transparencia',
@@ -55,13 +55,14 @@ export default function Responsabilidad() {
           className={styles.header}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{}}
           transition={{ duration: 0.7 }}
         >
           <div className={styles.ageWarning} role="note">
             <span className={styles.ageBadge} aria-label="Solo para mayores de 18 años">+18</span>
             <p>
-              Sangría Victoria es una bebida alcohólica. <strong>Solo para mayores de 18 años.</strong>{' '}
+              Sangría Victoria es una bebida alcohólica. <strong>Solo para mayores de 18 años.</strong>
+              <br />
               Si vas a conducir, no bebas.
             </p>
           </div>
@@ -71,7 +72,7 @@ export default function Responsabilidad() {
           className={styles.content}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{}}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
           <div className={styles.textCol}>
@@ -82,28 +83,23 @@ export default function Responsabilidad() {
               Responsabilidad <em className={styles.titleAccent}>Social y Ambiental</em>
             </h2>
             <p className={`body-lg ${styles.text}`}>
-              En Sangría Victoria creemos que disfrutar de una buena bebida va de
-              la mano con la responsabilidad hacia las personas y el planeta. Nuestro
-              compromiso va más allá del sabor.
+              En Sangría Victoria creemos que disfrutar de nuestros productos es una experiencia que viene acompañada de responsabilidad. Por eso trabajamos cada día para garantizar la calidad de nuestros procesos y el impacto positivo en nuestra comunidad y el medio ambiente.
             </p>
           </div>
 
-          <div className={styles.pillarsGrid} role="list">
+          <div className={styles.pillars}>
             {pillars.map((pillar, idx) => (
               <motion.div
-                key={idx}
+                key={pillar.title}
                 className={styles.pillar}
-                role="listitem"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 * idx }}
+                viewport={{}}
+                transition={{ delay: idx * 0.15 }}
               >
                 <div className={styles.pillarIcon}>{pillar.icon}</div>
-                <div>
-                  <h3 className={styles.pillarTitle}>{pillar.title}</h3>
-                  <p className={`body-sm ${styles.pillarText}`}>{pillar.text}</p>
-                </div>
+                <h3 className={styles.pillarTitle}>{pillar.title}</h3>
+                <p className={styles.pillarText}>{pillar.text}</p>
               </motion.div>
             ))}
           </div>

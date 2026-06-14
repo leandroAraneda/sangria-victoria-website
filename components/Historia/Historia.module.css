@@ -2,6 +2,33 @@
   background-color: var(--negro);
   padding: var(--space-24) 0;
   overflow: hidden;
+  position: relative;
+}
+
+.section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  background: linear-gradient(
+    to bottom,
+    rgba(17, 8, 14, 0) 0%,
+    rgba(17, 8, 14, 0.6) 50%,
+    rgba(17, 8, 14, 0.95) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+[data-theme="light"] .section::after {
+  height: 80px;
+  background: linear-gradient(
+    to bottom,
+    rgba(250, 244, 227, 0) 0%,
+    rgba(250, 244, 227, 1) 100%
+  );
 }
 
 .container {
@@ -22,7 +49,7 @@
 }
 
 .headerSubtitle {
-  color: rgba(248, 245, 239, 0.65);
+  color: var(--text-secondary);
   margin-top: var(--space-5);
 }
 
@@ -47,6 +74,13 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid rgba(201, 161, 93, 0.15);
+  cursor: pointer;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.imageMain:hover {
+  border-color: rgba(201, 161, 93, 0.5);
+  box-shadow: 0 0 20px rgba(201, 161, 93, 0.15);
 }
 
 .imageMain::after {
@@ -93,6 +127,13 @@
   border-radius: var(--radius-md);
   overflow: hidden;
   border: 1px solid rgba(201, 161, 93, 0.1);
+  cursor: pointer;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.imageSmall:hover {
+  border-color: rgba(201, 161, 93, 0.5);
+  box-shadow: 0 0 15px rgba(201, 161, 93, 0.12);
 }
 
 /* Text Column */
@@ -101,10 +142,10 @@
 }
 
 .introText {
-  color: rgba(248, 245, 239, 0.75);
+  color: var(--text-secondary);
   margin-bottom: var(--space-10);
   padding-bottom: var(--space-10);
-  border-bottom: 1px solid rgba(201, 161, 93, 0.15);
+  border-bottom: 1px solid var(--border-color);
   line-height: 1.8;
 }
 
@@ -176,7 +217,7 @@
 }
 
 .timelineText {
-  color: rgba(248, 245, 239, 0.6);
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
@@ -185,6 +226,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
+  position: relative;
+  z-index: 3;
 }
 
 .valueTag {
@@ -200,10 +243,20 @@
   transition: all var(--transition-base);
 }
 
-.valueTag:hover {
-  background-color: var(--dorado);
-  color: var(--negro);
+[data-theme="light"] .valueTag {
+  color: #B57520;
+  border-color: #E89B2D;
+  background-color: rgba(232, 155, 45, 0.12);
+  font-weight: 700;
 }
+
+[data-theme="light"] .valueTag:hover {
+  background-color: rgba(232, 155, 45, 0.2);
+  border-color: #C44A2A;
+  color: #8A4A1A;
+}
+
+
 
 /* Responsive */
 @media (max-width: 1024px) {

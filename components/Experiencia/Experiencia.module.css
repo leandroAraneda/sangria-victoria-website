@@ -4,6 +4,11 @@
   overflow: hidden;
 }
 
+[data-theme="light"] .section::after,
+.section::after {
+  display: none;
+}
+
 .bgWrapper {
   position: absolute;
   inset: 0;
@@ -12,12 +17,8 @@
 .bgOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(17, 8, 14, 0.92) 0%,
-    rgba(74, 8, 18, 0.88) 50%,
-    rgba(17, 8, 14, 0.95) 100%
-  );
+  background: var(--bg-primary);
+  opacity: 1;
 }
 
 .container {
@@ -40,7 +41,7 @@
 }
 
 .subtitle {
-  color: rgba(248, 245, 239, 0.7);
+  color: var(--text-secondary);
   margin-top: var(--space-5);
 }
 
@@ -53,17 +54,17 @@
 
 /* Card */
 .card {
-  background: rgba(17, 8, 14, 0.7);
+  background: var(--surface);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(201, 161, 93, 0.15);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: var(--space-8) var(--space-6);
   transition: border-color var(--transition-base), background var(--transition-base);
 }
 
 .card:hover {
-  border-color: rgba(201, 161, 93, 0.4);
-  background: rgba(74, 8, 18, 0.4);
+  border-color: var(--dorado);
+  background: var(--surface-hover);
 }
 
 .iconWrapper {
@@ -95,7 +96,7 @@
 .cardText {
   font-family: var(--font-body);
   font-size: 0.9rem;
-  color: rgba(248, 245, 239, 0.65);
+  color: var(--text-muted);
   line-height: 1.65;
   margin-bottom: var(--space-5);
 }
@@ -109,7 +110,7 @@
   color: var(--dorado);
   font-style: italic;
   padding-top: var(--space-4);
-  border-top: 1px solid rgba(201, 161, 93, 0.15);
+  border-top: 1px solid var(--border-color);
 }
 
 .tipDot {

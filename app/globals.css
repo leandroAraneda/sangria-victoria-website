@@ -18,6 +18,25 @@
   --gris-dark: #3D3D3D;
   --gris-bg: #1a1a1a;
 
+  /* Semantic tokens — Dark theme (default) */
+  --bg-primary: var(--negro);
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #222222;
+  --text-primary: var(--marfil);
+  --text-secondary: rgba(248, 245, 239, 0.75);
+  --text-muted: rgba(248, 245, 239, 0.55);
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-hover: rgba(255, 255, 255, 0.08);
+  --border-color: rgba(201, 161, 93, 0.2);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --scrollbar-track: var(--negro);
+  --scrollbar-thumb: var(--burdeo-premium);
+  --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --overlay-bg: rgba(0, 0, 0, 0.6);
+
+  /* Verde sutil (Sangría cursiva) */
+  --verde-cursiva: #7BA05B;
+
   /* Typography */
   --font-heading: var(--font-playfair), 'Playfair Display', Georgia, serif;
   --font-body: var(--font-inter), 'Inter', system-ui, sans-serif;
@@ -61,6 +80,43 @@
 }
 
 /* ========================================
+   Light Theme — inspirado en sangría naranja/dorada
+   ======================================== */
+[data-theme="light"] {
+  --burdeo-premium: #C44A2A;
+  --burdeo-oscuro: #9A3520;
+  --dorado: #E89B2D;
+  --dorado-light: #F5B847;
+  --dorado-dark: #B57520;
+  --marfil: #2A1A0A;
+  --blanco: #FFFFFF;
+  --negro: #FAF4E3;
+  --gris: #6B5840;
+  --gris-light: #8B7355;
+  --gris-dark: #4A3820;
+  --gris-bg: #F0E8D0;
+
+  /* Semantic tokens — Light theme */
+  --bg-primary: #FAF4E3;
+  --bg-secondary: #FFFFFF;
+  --bg-tertiary: #F5EDD8;
+  --text-primary: #2A1A0A;
+  --text-secondary: rgba(58, 26, 10, 0.75);
+  --text-muted: rgba(58, 26, 10, 0.55);
+  --surface: #FFFFFF;
+  --surface-hover: #F5EDD8;
+  --border-color: rgba(232, 155, 45, 0.3);
+  --border-subtle: rgba(58, 26, 10, 0.1);
+  --scrollbar-track: #F0E8D0;
+  --scrollbar-thumb: #E89B2D;
+  --card-shadow: 0 4px 24px rgba(196, 74, 42, 0.12);
+  --overlay-bg: rgba(42, 26, 10, 0.5);
+
+  /* Verde sutil */
+  --verde-cursiva: #6B8E3D;
+}
+
+/* ========================================
    Reset & Base
    ======================================== */
 *, *::before, *::after {
@@ -72,17 +128,19 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  background-color: var(--negro);
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s ease;
 }
 
 body {
   font-family: var(--font-body);
-  color: var(--marfil);
-  background-color: var(--negro);
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 img {
@@ -271,11 +329,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--negro);
+  background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--burdeo-premium);
+  background: var(--scrollbar-thumb);
   border-radius: var(--radius-full);
 }
 

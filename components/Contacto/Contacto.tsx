@@ -37,7 +37,7 @@ export default function Contacto() {
             className={styles.info}
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{}}
             transition={{ duration: 0.7 }}
           >
             <div className="gold-divider">
@@ -111,7 +111,7 @@ export default function Contacto() {
               <p className={styles.socialLabel}>Síguenos</p>
               <div className={styles.socialLinks}>
                 <a
-                  href="https://instagram.com/sangriavictoria"
+                  href="https://www.instagram.com/sangria.victoria/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.socialBtn}
@@ -125,7 +125,7 @@ export default function Contacto() {
                   Instagram
                 </a>
                 <a
-                  href="https://facebook.com/sangriavictoria"
+                  href="https://www.facebook.com/sangria.victoria.2025"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.socialBtn}
@@ -145,7 +145,7 @@ export default function Contacto() {
             className={styles.formWrapper}
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{}}
             transition={{ duration: 0.7, delay: 0.1 }}
           >
             {submitted ? (

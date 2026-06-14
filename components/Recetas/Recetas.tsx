@@ -13,9 +13,9 @@ const difficultyColor = {
 }
 
 export default function Recetas() {
-  const [selected, setSelected] = useState<string | null>(null)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
 
-  const selectedRecipe = recipes.find((r) => r.id === selected)
+  const selectedRecipe = recipes.find((r) => r.id === selectedId)
 
   return (
     <section id="recetas" className={styles.section} aria-labelledby="recetas-title">
@@ -24,7 +24,7 @@ export default function Recetas() {
           className={styles.header}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{}}
           transition={{ duration: 0.7 }}
         >
           <div className="gold-divider">
@@ -40,24 +40,28 @@ export default function Recetas() {
 
         <div className={styles.layout}>
           {/* Recipe Grid */}
-          <div className={styles.grid} role="list">
+          <div
+            className={styles.grid}
+            style={{ flexBasis: selectedId ? 'calc(100% - 420px)' : '100%' }}
+            role="list"
+          >
             {recipes.map((recipe, idx) => (
               <motion.article
                 key={recipe.id}
-                className={`${styles.card} ${selected === recipe.id ? styles.cardActive : ''}`}
+                className={`${styles.card} ${selectedId === recipe.id ? styles.cardActive : ''}`}
                 role="listitem"
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
+                viewport={{ amount: 0 }}
                 transition={{ delay: idx * 0.1 }}
-                onClick={() => setSelected(selected === recipe.id ? null : recipe.id)}
+                onClick={() => setSelectedId(selectedId === recipe.id ? null : recipe.id)}
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
-                    setSelected(selected === recipe.id ? null : recipe.id)
+                    setSelectedId(selectedId === recipe.id ? null : recipe.id)
                   }
                 }}
-                aria-expanded={selected === recipe.id}
+                aria-expanded={selectedId === recipe.id}
                 aria-label={`Receta ${recipe.name}, tiempo ${recipe.time}, dificultad ${recipe.difficulty}`}
               >
                 <div className={styles.cardImage}>
@@ -101,7 +105,7 @@ export default function Recetas() {
                       stroke="currentColor"
                       strokeWidth="2"
                       style={{
-                        transform: selected === recipe.id ? 'rotate(180deg)' : 'none',
+                        transform: selectedId === recipe.id ? 'rotate(180deg)' : 'none',
                         transition: 'transform 0.3s ease',
                       }}
                     >
@@ -114,14 +118,15 @@ export default function Recetas() {
           </div>
 
           {/* Detail Panel */}
-          <AnimatePresence>
+          <AnimatePresence mode="wait">
             {selectedRecipe && (
               <motion.aside
+                key={selectedRecipe.id}
                 className={styles.detail}
-                initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 30 }}
-                transition={{ duration: 0.4 }}
+                initial={{ opacity: 0, x: 50, width: 0 }}
+                animate={{ opacity: 1, x: 0, width: 380 }}
+                exit={{ opacity: 0, x: 50, width: 0 }}
+                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
                 aria-label={`Detalle de receta: ${selectedRecipe.name}`}
               >
                 <div className={styles.detailImage}>
@@ -170,7 +175,7 @@ export default function Recetas() {
                     <ol className={styles.stepList}>
                       {selectedRecipe.steps.map((step, i) => (
                         <li key={i} className={styles.stepItem}>
-                          <span className={styles.stepNum}>{i + 1}</span>
+                          <span className={styles.bullet} aria-hidden="true" />
                           <span>{step}</span>
                         </li>
                       ))}

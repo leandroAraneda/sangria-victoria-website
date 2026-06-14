@@ -70,6 +70,13 @@
   overflow: hidden;
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(201,161,93,0.15);
+  cursor: zoom-in;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.mainImage:hover {
+  border-color: rgba(201, 161, 93, 0.5);
+  box-shadow: 0 0 20px rgba(201, 161, 93, 0.15);
 }
 
 .badge {
@@ -220,7 +227,7 @@
 }
 
 .price {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 2.25rem;
   font-weight: 700;
   color: var(--dorado);
@@ -275,14 +282,32 @@
   text-align: center;
 }
 
-.addBtn {
+.btnStack {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.addBtn {
   justify-content: center;
+  border: 1px solid rgba(201,161,93,0.35);
+  color: var(--dorado);
+  background: transparent;
+}
+
+.addBtn:hover {
+  background: rgba(201,161,93,0.08);
 }
 
 .addedBtn {
   background: #4caf83;
   color: var(--negro);
+  border-color: #4caf83;
+}
+
+.buyBtn {
+  justify-content: center;
 }
 
 .totalLine {
@@ -347,7 +372,6 @@
 
 .tabText {
   color: var(--gris-light);
-  max-width: 680px;
 }
 
 .list {
@@ -453,6 +477,31 @@
   color: var(--dorado);
 }
 
+/* Toast notification */
+.toast {
+  position: fixed;
+  top: 90px;
+  left: 24px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: rgba(26, 16, 24, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(76, 175, 131, 0.4);
+  border-radius: var(--radius-md);
+  color: var(--marfil);
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.toast svg {
+  color: #4caf83;
+  flex-shrink: 0;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .layout {
@@ -483,4 +532,26 @@
     flex-direction: column;
     align-items: stretch;
   }
+}
+
+[data-theme="light"] .mainImage:hover {
+  border-color: var(--dorado);
+  box-shadow: 0 0 30px rgba(232, 155, 45, 0.35), 0 0 0 1px rgba(232, 155, 45, 0.3);
+}
+
+[data-theme="light"] .toast {
+  background: var(--surface);
+  color: var(--text-primary);
+  border-color: rgba(76, 175, 131, 0.5);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .pairingItem {
+  background: var(--surface);
+  border-color: rgba(232, 155, 45, 0.3);
+  color: var(--text-secondary);
+}
+
+[data-theme="light"] .listItem {
+  color: var(--text-secondary);
 }

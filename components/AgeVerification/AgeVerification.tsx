@@ -1,11 +1,15 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
 import styles from './AgeVerification.module.css'
 
-export default function AgeVerification() {
+interface AgeVerificationProps {
+  onVerified?: () => void
+}
+
+export default function AgeVerification({ onVerified }: AgeVerificationProps) {
   const [visible, setVisible] = useState(false)
+  const confirmed = useRef(false)
 
   useEffect(() => {
     const verified = sessionStorage.getItem('sv_age_ok')
@@ -13,79 +17,57 @@ export default function AgeVerification() {
   }, [])
 
   const confirm = () => {
+    if (confirmed.current) return
+    confirmed.current = true
     sessionStorage.setItem('sv_age_ok', '1')
     setVisible(false)
+    onVerified?.()
   }
 
   const deny = () => {
-    // Redirect to a safe page
-    window.location.href = 'https://www.who.int/es'
+    window.location.href = 'https://www.instagram.com/sangria.victoria/'
   }
 
+  if (!visible) return null
+
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          className={styles.overlay}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="age-title"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <motion.div
-            className={styles.modal}
-            initial={{ opacity: 0, y: 40, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ type: 'spring', stiffness: 280, damping: 28, delay: 0.1 }}
-          >
-            {/* Decorative top line */}
-            <div className={styles.topLine} aria-hidden="true" />
+    <div className={styles.overlay} role="dialog" aria-modal="true" aria-labelledby="age-title">
+      <div className={styles.modal}>
+        <div className={styles.topLine} aria-hidden="true" />
 
-            <div className={styles.badgeWrapper} aria-hidden="true">
-              <div className={styles.badge}>
-                <span>+18</span>
-              </div>
-            </div>
+        <div className={styles.badgeWrapper} aria-hidden="true">
+          <div className={styles.badge}>
+            <span>+18</span>
+          </div>
+        </div>
 
-            <div className={styles.brand} aria-hidden="true">
-              <span className={styles.brandText}>Victoria</span>
-              <span className={styles.brandSub}>Sangría Premium</span>
-            </div>
+        <div className={styles.brand} aria-hidden="true">
+          <span className={styles.brandText}>Victoria</span>
+          <span className={styles.brandSub}>Sangría Premium</span>
+        </div>
 
-            <h1 id="age-title" className={`heading-md ${styles.title}`}>
-              ¿Eres mayor de 18 años?
-            </h1>
-            <p className={`body-md ${styles.text}`}>
-              Este sitio es exclusivo para mayores de edad. Por favor confirma tu edad
-              para continuar.
-            </p>
+        <h1 id="age-title" className={`heading-md ${styles.title}`}>
+          ¿Eres mayor de 18 años?
+        </h1>
+        <p className={`body-md ${styles.text}`}>
+          Este sitio es exclusivo para mayores de edad. Por favor confirma tu edad
+          para continuar.
+        </p>
 
-            <div className={styles.actions}>
-              <button
-                className={`btn btn-primary ${styles.confirmBtn}`}
-                onClick={confirm}
-                autoFocus
-              >
-                Sí, tengo 18 o más
-              </button>
-              <button
-                className={`btn btn-secondary ${styles.denyBtn}`}
-                onClick={deny}
-              >
-                No, soy menor
-              </button>
-            </div>
+        <div className={styles.actions}>
+          <button className={`btn btn-primary ${styles.confirmBtn}`} onClick={confirm} autoFocus>
+            Sí, tengo 18 o más
+          </button>
+          <button className={`btn btn-secondary ${styles.denyBtn}`} onClick={deny}>
+            No, soy menor
+          </button>
+        </div>
 
-            <p className={styles.disclaimer}>
-              Al ingresar confirmas que tienes la edad legal para consumir bebidas
-              alcohólicas en tu país. Bebe responsablemente.
-            </p>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        <p className={styles.disclaimer}>
+          Al ingresar confirmas que tienes la edad legal para consumir bebidas
+          alcohólicas en tu país. Bebe responsablemente.
+        </p>
+      </div>
+    </div>
   )
 }

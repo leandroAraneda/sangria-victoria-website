@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Playfair_Display, Inter } from 'next/font/google'
 import './globals.css'
 import { CartProvider } from '@/lib/CartContext'
-import AgeVerification from '@/components/AgeVerification/AgeVerification'
+import { ThemeProvider } from '@/lib/ThemeContext'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -64,8 +64,26 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" className={`${playfair.variable} ${inter.variable}`}>
+    <html lang="es" data-theme="dark" className={`${playfair.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('sv_theme');
+                  if (theme === 'light' || theme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', theme);
+                  } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                  }
+                } catch (e) {
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                }
+              })();
+            `,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -92,10 +110,11 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <CartProvider>
-          <AgeVerification />
-          {children}
-        </CartProvider>
+        <ThemeProvider>
+          <CartProvider>
+            {children}
+          </CartProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

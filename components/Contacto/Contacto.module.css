@@ -1,7 +1,12 @@
 .section {
-  background-color: var(--gris-bg);
+  background-color: var(--bg-secondary);
   padding: var(--space-24) 0;
   position: relative;
+}
+
+[data-theme="light"] .section::after,
+.section::after {
+  display: none;
 }
 
 .container {
@@ -45,14 +50,14 @@
   align-items: flex-start;
   gap: var(--space-4);
   padding: var(--space-4);
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(201,161,93,0.12);
+  background: var(--surface);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   transition: border-color var(--transition-base);
 }
 
 .contactCard:hover {
-  border-color: rgba(201,161,93,0.3);
+  border-color: var(--dorado);
 }
 
 .contactIcon {
@@ -132,8 +137,8 @@
 
 /* Form */
 .formWrapper {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(201,161,93,0.15);
+  background: var(--surface);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-xl);
   padding: var(--space-8);
 }
@@ -172,10 +177,10 @@
 .select,
 .textarea {
   padding: 11px 14px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(201,161,93,0.2);
+  background: var(--surface);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  color: var(--marfil);
+  color: var(--text-primary);
   font-size: 0.9375rem;
   transition: border-color var(--transition-base);
 }
@@ -225,8 +230,8 @@
 .spinner {
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(0,0,0,0.3);
-  border-top-color: var(--negro);
+  border: 2px solid var(--border-color);
+  border-top-color: var(--text-primary);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
   display: inline-block;
@@ -274,4 +279,46 @@
   .formRow {
     grid-template-columns: 1fr;
   }
+}
+
+/* Light mode styles */
+[data-theme="light"] .section::after {
+  display: none;
+}
+
+[data-theme="light"] .select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23B57520' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+
+[data-theme="light"] .select:hover {
+  border-color: var(--dorado);
+}
+
+[data-theme="light"] .select:focus {
+  border-color: var(--dorado);
+  box-shadow: 0 0 0 3px rgba(232, 155, 45, 0.15);
+}
+
+[data-theme="light"] .select option {
+  background: #FAF4E3;
+  color: #2A1A0A;
+  padding: 10px 14px;
+  font-weight: 500;
+}
+
+[data-theme="light"] .select option:checked,
+[data-theme="light"] .select option:hover {
+  background: linear-gradient(90deg, rgba(232, 155, 45, 0.2), rgba(232, 155, 45, 0.1));
+  color: #B57520;
+}
+
+[data-theme="light"] .socialBtn {
+  border: 1px solid rgba(232, 155, 45, 0.5);
+  color: var(--text-secondary);
+}
+
+[data-theme="light"] .socialBtn:hover {
+  border-color: var(--dorado);
+  color: #B57520;
+  background: rgba(232, 155, 45, 0.08);
 }

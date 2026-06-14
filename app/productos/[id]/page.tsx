@@ -4,13 +4,17 @@ import { use, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import Header from '@/components/Header/Header'
 import Footer from '@/components/Footer/Footer'
 import Cart from '@/components/Cart/Cart'
+import ImageViewer from '@/components/ImageViewer/ImageViewer'
 import { products } from '@/lib/data'
 import { useCart } from '@/lib/CartContext'
 import styles from './product.module.css'
+
+const formatCLP = (num: number) =>
+  num.toLocaleString('es-CL', { minimumFractionDigits: 0, maximumFractionDigits: 0 })
 
 export default function ProductoPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
@@ -19,21 +23,46 @@ export default function ProductoPage({ params }: { params: Promise<{ id: string 
 
   const { addItem } = useCart()
   const [qty, setQty] = useState(1)
-  const [added, setAdded] = useState(false)
+  const [notification, setNotification] = useState<string | null>(null)
   const [selectedImage, setSelectedImage] = useState(product.gallery[0])
   const [activeTab, setActiveTab] = useState<'descripcion' | 'ingredientes' | 'maridaje'>('descripcion')
+  const [viewerOpen, setViewerOpen] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   const relatedProducts = products.filter((p) => p.id !== product.id).slice(0, 3)
 
   const handleAdd = () => {
-    addItem(product, qty)
-    setAdded(true)
-    setTimeout(() => setAdded(false), 2000)
+    addItem(product, qty, false)
+    setNotification(`${product.shortName} agregado al carrito`)
+    setTimeout(() => setNotification(null), 2500)
   }
+
+  const handleBuy = () => {
+    addItem(product, qty, true)
+  }
+
+  const openViewer = (index: number) => {
+    setCurrentImageIndex(index)
+    setViewerOpen(true)
+  }
+
+  const closeViewer = () => {
+    setViewerOpen(false)
+  }
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % product.gallery.length)
+  }
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + product.gallery.length) % product.gallery.length)
+  }
+
+  const galleryImages = product.gallery.map((src) => ({ src, alt: product.name }))
 
   return (
     <>
-      <Header />
+      <Header forceScrolled />
       <main className={styles.page}>
         {/* Breadcrumb */}
         <nav className={styles.breadcrumb} aria-label="Ruta de navegación">
@@ -55,7 +84,14 @@ export default function ProductoPage({ params }: { params: Promise<{ id: string 
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className={styles.mainImage}>
+              <div
+                className={styles.mainImage}
+                onClick={() => openViewer(product.gallery.indexOf(selectedImage))}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && openViewer(product.gallery.indexOf(selectedImage))}
+                aria-label="Ver imagen en grande"
+              >
                 <Image
                   src={selectedImage}
                   alt={product.name}
@@ -137,11 +173,11 @@ export default function ProductoPage({ params }: { params: Promise<{ id: string 
                 <div className={styles.prices}>
                   {product.originalPrice && (
                     <span className={styles.originalPrice}>
-                      ${product.originalPrice.toLocaleString('es-CL')}
+                      $ {formatCLP(product.originalPrice)}
                     </span>
                   )}
                   <span className={styles.price}>
-                    ${product.price.toLocaleString('es-CL')}
+                    $ {formatCLP(product.price)}
                   </span>
                 </div>
                 {product.discount && (
@@ -174,33 +210,35 @@ export default function ProductoPage({ params }: { params: Promise<{ id: string 
                   </button>
                 </div>
 
-                <motion.button
-                  className={`btn ${added ? styles.addedBtn : 'btn-primary'} ${styles.addBtn}`}
-                  onClick={handleAdd}
-                  whileTap={{ scale: 0.97 }}
-                  aria-label={`Agregar ${qty} ${product.shortName} al carrito`}
-                >
-                  {added ? (
-                    <>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
-                        <polyline points="20 6 9 17 4 12"/>
-                      </svg>
-                      Agregado al Carrito
-                    </>
-                  ) : (
-                    <>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                        <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
-                        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
-                      </svg>
-                      Agregar al Carrito
-                    </>
-                  )}
-                </motion.button>
+                <div className={styles.btnStack}>
+                  <motion.button
+                    className={`btn ${styles.addBtn}`}
+                    onClick={handleAdd}
+                    whileTap={{ scale: 0.97 }}
+                    aria-label={`Agregar ${qty} ${product.shortName} al carrito`}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                      <line x1="12" y1="5" x2="12" y2="19"/>
+                      <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    Agregar al Carrito
+                  </motion.button>
+                  <motion.button
+                    className={`btn btn-primary ${styles.buyBtn}`}
+                    onClick={handleBuy}
+                    whileTap={{ scale: 0.97 }}
+                    aria-label={`Comprar ${qty} ${product.shortName} ahora`}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                    Comprar
+                  </motion.button>
+                </div>
               </div>
 
               <p className={styles.totalLine}>
-                Total: <strong>${(product.price * qty).toLocaleString('es-CL')}</strong>
+                Total: <strong>$ {formatCLP(product.price * qty)}</strong>
               </p>
 
               {/* Info pills */}
@@ -241,31 +279,57 @@ export default function ProductoPage({ params }: { params: Promise<{ id: string 
             </div>
 
             <div className={styles.tabPanel} id={`tab-panel-${activeTab}`} role="tabpanel">
-              {activeTab === 'descripcion' && (
-                <p className={`body-lg ${styles.tabText}`}>{product.longDescription}</p>
-              )}
-              {activeTab === 'ingredientes' && (
-                <ul className={styles.list}>
-                  {product.ingredients.map((ing) => (
-                    <li key={ing} className={styles.listItem}>
-                      <span className={styles.bullet} aria-hidden="true" />
-                      {ing}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {activeTab === 'maridaje' && (
-                <div className={styles.pairingGrid}>
-                  {product.pairing.map((p) => (
-                    <div key={p} className={styles.pairingItem}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                        <polyline points="20 6 9 17 4 12"/>
-                      </svg>
-                      {p}
+              <AnimatePresence mode="wait">
+                {activeTab === 'descripcion' && (
+                  <motion.div
+                    key="descripcion"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.25, ease: 'easeOut' }}
+                  >
+                    <p className={`body-lg ${styles.tabText}`}>{product.longDescription}</p>
+                  </motion.div>
+                )}
+                {activeTab === 'ingredientes' && (
+                  <motion.div
+                    key="ingredientes"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.25, ease: 'easeOut' }}
+                  >
+                    <ul className={styles.list}>
+                      {product.ingredients.map((ing) => (
+                        <li key={ing} className={styles.listItem}>
+                          <span className={styles.bullet} aria-hidden="true" />
+                          {ing}
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                )}
+                {activeTab === 'maridaje' && (
+                  <motion.div
+                    key="maridaje"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.25, ease: 'easeOut' }}
+                  >
+                    <div className={styles.pairingGrid}>
+                      {product.pairing.map((p) => (
+                        <div key={p} className={styles.pairingItem}>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                            <polyline points="20 6 9 17 4 12"/>
+                          </svg>
+                          {p}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
 
@@ -286,7 +350,7 @@ export default function ProductoPage({ params }: { params: Promise<{ id: string 
                   </div>
                   <div className={styles.relatedInfo}>
                     <p className={styles.relatedName}>{rp.shortName}</p>
-                    <p className={styles.relatedPrice}>${rp.price.toLocaleString('es-CL')}</p>
+                    <p className={styles.relatedPrice}>$ {formatCLP(rp.price)}</p>
                   </div>
                 </Link>
               ))}
@@ -296,6 +360,36 @@ export default function ProductoPage({ params }: { params: Promise<{ id: string 
       </main>
       <Footer />
       <Cart />
+
+      <ImageViewer
+        images={galleryImages}
+        currentIndex={currentImageIndex}
+        isOpen={viewerOpen}
+        onClose={closeViewer}
+        onNext={nextImage}
+        onPrev={prevImage}
+      />
+
+      {/* Notification toast */}
+      <AnimatePresence>
+        {notification && (
+          <motion.div
+            key={notification}
+            className={styles.toast}
+            initial={{ opacity: 0, x: -100, y: 0 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            exit={{ opacity: 0, x: -100 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            role="status"
+            aria-live="polite"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>{notification}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }

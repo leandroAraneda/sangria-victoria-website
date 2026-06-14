@@ -1,3 +1,6 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import Header from '@/components/Header/Header'
 import Hero from '@/components/Hero/Hero'
 import Historia from '@/components/Historia/Historia'
@@ -10,13 +13,34 @@ import Contacto from '@/components/Contacto/Contacto'
 import Responsabilidad from '@/components/Responsabilidad/Responsabilidad'
 import Footer from '@/components/Footer/Footer'
 import Cart from '@/components/Cart/Cart'
+import AgeVerification from '@/components/AgeVerification/AgeVerification'
 
 export default function Home() {
+  const [checkedAge, setCheckedAge] = useState(false)
+  const [heroReady, setHeroReady] = useState(false)
+
+  useEffect(() => {
+    const verified = sessionStorage.getItem('sv_age_ok')
+    if (verified) {
+      setHeroReady(true)
+    }
+    setCheckedAge(true)
+  }, [])
+
+  const handleAgeVerified = () => {
+    setTimeout(() => {
+      setHeroReady(true)
+    }, 350)
+  }
+
+  if (!checkedAge) return null
+
   return (
     <>
+      <AgeVerification onVerified={handleAgeVerified} />
       <Header />
       <main id="main-content">
-        <Hero />
+        <Hero startAnimation={heroReady} />
         <Historia />
         <ProductosDestacados />
         <Experiencia />

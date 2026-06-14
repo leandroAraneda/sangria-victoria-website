@@ -8,6 +8,7 @@
   justify-content: center;
   padding: var(--space-4);
   backdrop-filter: blur(6px);
+  animation: fadeIn 0.3s ease-out forwards;
 }
 
 .modal {
@@ -25,6 +26,24 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 32px 80px rgba(0,0,0,0.6), inset 0 0 80px rgba(106,15,29,0.08);
+  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .topLine {
@@ -37,15 +56,14 @@
 }
 
 .badgeWrapper {
-  margin-top: var(--space-2);
+  margin-top: var(--space-1);
 }
 
 .badge {
-  width: 72px;
-  height: 72px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   border: 2px solid var(--dorado);
-  background: rgba(201,161,93,0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,9 +71,12 @@
 
 .badge span {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--dorado);
+  line-height: 1;
+  font-feature-settings: "tnum", "lnum";
+  letter-spacing: 0.05em;
 }
 
 .brand {
@@ -112,4 +133,37 @@
   max-width: 340px;
   padding-top: var(--space-2);
   border-top: 1px solid rgba(201,161,93,0.1);
+}
+
+/* Light mode styles */
+[data-theme="light"] .overlay {
+  background: rgba(250, 244, 227, 0.92);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme="light"] .modal {
+  background: #FFFFFF;
+  border: 1px solid rgba(232, 155, 45, 0.4);
+  box-shadow: 0 32px 80px rgba(196, 74, 42, 0.15), inset 0 0 80px rgba(232, 155, 45, 0.05);
+}
+
+[data-theme="light"] .title {
+  color: #2A1A0A;
+}
+
+[data-theme="light"] .text {
+  color: rgba(42, 26, 10, 0.75);
+}
+
+[data-theme="light"] .brandSub {
+  color: rgba(42, 26, 10, 0.6);
+}
+
+[data-theme="light"] .disclaimer {
+  color: rgba(42, 26, 10, 0.6);
+  border-top-color: rgba(232, 155, 45, 0.2);
+}
+
+[data-theme="light"] .brandText {
+  color: #B57520;
 }

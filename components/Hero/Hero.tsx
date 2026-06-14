@@ -15,7 +15,11 @@ const fadeUp = {
   }),
 }
 
-export default function Hero() {
+interface HeroProps {
+  startAnimation?: boolean
+}
+
+export default function Hero({ startAnimation = true }: HeroProps) {
   const parallaxRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -27,6 +31,8 @@ export default function Hero() {
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const animState = startAnimation ? 'visible' : 'hidden'
 
   return (
     <section id="inicio" className={styles.hero} aria-label="Inicio - Sangría Victoria">
@@ -49,21 +55,11 @@ export default function Hero() {
 
       {/* Content */}
       <div className={styles.content}>
-        <motion.div
-          className={styles.tagWrapper}
-          initial="hidden"
-          animate="visible"
-          custom={0.1}
-          variants={fadeUp}
-        >
-          <span className={styles.tag}>Valle de Curicó, Chile</span>
-        </motion.div>
-
         <motion.h1
           className={styles.title}
           initial="hidden"
-          animate="visible"
-          custom={0.3}
+          animate={animState}
+          custom={0.1}
           variants={fadeUp}
         >
           Sangría Premium
@@ -71,10 +67,20 @@ export default function Hero() {
           <em className={styles.titleAccent}>Elaborada en Curicó</em>
         </motion.h1>
 
+        <motion.div
+          className={styles.tagWrapper}
+          initial="hidden"
+          animate={animState}
+          custom={0.3}
+          variants={fadeUp}
+        >
+          <span className={styles.tag}>Valle de Curicó, Chile</span>
+        </motion.div>
+
         <motion.p
           className={styles.subtitle}
           initial="hidden"
-          animate="visible"
+          animate={animState}
           custom={0.5}
           variants={fadeUp}
         >
@@ -86,13 +92,10 @@ export default function Hero() {
         <motion.div
           className={styles.buttons}
           initial="hidden"
-          animate="visible"
+          animate={animState}
           custom={0.7}
           variants={fadeUp}
         >
-          <a href="#historia" className={`btn btn-secondary ${styles.btnHero}`}>
-            Descubrir Victoria
-          </a>
           <Link href="/ventas" className={`btn btn-primary ${styles.btnHero}`}>
             Comprar Ahora
           </Link>
@@ -102,7 +105,7 @@ export default function Hero() {
         <motion.div
           className={styles.stats}
           initial="hidden"
-          animate="visible"
+          animate={animState}
           custom={0.9}
           variants={fadeUp}
         >
@@ -122,18 +125,6 @@ export default function Hero() {
           </div>
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className={styles.scrollIndicator}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        aria-hidden="true"
-      >
-        <span className={styles.scrollText}>Descubre</span>
-        <div className={styles.scrollLine} />
-      </motion.div>
     </section>
   )
 }

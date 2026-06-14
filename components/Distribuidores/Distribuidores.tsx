@@ -36,7 +36,7 @@ export default function Distribuidores() {
           className={styles.header}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{}}
           transition={{ duration: 0.7 }}
         >
           <div className="gold-divider">
@@ -56,7 +56,7 @@ export default function Distribuidores() {
           className={styles.filters}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{}}
           transition={{ delay: 0.2 }}
         >
           {/* Search */}
