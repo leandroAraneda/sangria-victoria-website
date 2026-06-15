@@ -30,6 +30,7 @@ export default function ImageViewer({
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isDragging, setIsDragging] = useState(false)
   const [isDraggingZoom, setIsDraggingZoom] = useState(false)
+  const [touchStartX, setTouchStartX] = useState<number | null>(null)
   const dragStart = useRef({ x: 0, y: 0 })
   const positionRef = useRef({ x: 0, y: 0 })
   const imageRef = useRef<HTMLDivElement>(null)
@@ -139,6 +140,31 @@ export default function ImageViewer({
     setIsDragging(false)
   }
 
+  const handleContainerTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      setTouchStartX(e.touches[0].clientX)
+    }
+  }
+
+  const handleContainerTouchMove = (e: React.TouchEvent) => {
+    if (touchStartX === null || e.touches.length !== 1) return
+  }
+
+  const handleContainerTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return
+    const touchEndX = e.changedTouches[0].clientX
+    const diff = touchStartX - touchEndX
+    const threshold = 50
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) {
+        onNext()
+      } else {
+        onPrev()
+      }
+    }
+    setTouchStartX(null)
+  }
+
   const handleMouseLeave = () => {
     setIsDragging(false)
   }
@@ -228,7 +254,7 @@ export default function ImageViewer({
           transition={{ duration: 0.3 }}
           onClick={onClose}
         >
-          <div className={styles.container} onClick={onClose}>
+          <div className={styles.container} onClick={onClose} onTouchStart={handleContainerTouchStart} onTouchMove={handleContainerTouchMove} onTouchEnd={handleContainerTouchEnd}>
             <motion.div
               className={styles.imageWrapper}
               ref={imageRef}

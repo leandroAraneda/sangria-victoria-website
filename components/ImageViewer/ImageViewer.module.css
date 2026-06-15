@@ -32,6 +32,9 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: 0 30px 100px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(213, 158, 82, 0.15);
+  touch-action: none;
+  -webkit-touch-callout: none;
+  user-select: none;
 }
 
 .imageInner {
@@ -41,6 +44,9 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  user-select: none;
 }
 
 .closeBtn {
@@ -270,12 +276,83 @@
 }
 
 @media (max-width: 480px) {
-  .navBtn {
-    display: none;
+  .container {
+    padding: var(--space-3);
+    padding-top: calc(var(--header-height) + var(--space-4));
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
   }
 
   .imageWrapper {
-    height: 40vh;
+    height: 45vh;
+    max-height: 320px;
+    width: 100%;
+    flex-shrink: 0;
+    margin-bottom: var(--space-6);
+  }
+
+  .closeBtn {
+    top: calc(var(--header-height) + var(--space-3));
+    width: 40px;
+    height: 40px;
+  }
+
+  .navBtn {
+    display: flex;
+    width: 44px;
+    height: 44px;
+    top: calc(var(--header-height) + var(--space-4));
+    transform: none;
+  }
+
+  .navBtnPrev {
+    left: var(--space-3);
+  }
+
+  .navBtnNext {
+    right: var(--space-3);
+  }
+
+  .counter {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    font-size: 0.8rem;
+    padding: var(--space-1) var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .dots {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .zoomBar {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-bottom: var(--space-4);
+  }
+
+  .zoomTrack {
+    width: 120px;
+  }
+
+  .zoomLabel {
+    font-size: 0.75rem;
+    min-width: 40px;
   }
 }
 
