@@ -298,41 +298,41 @@ export default function ImageViewer({
                     draggable={false}
                   />
                 </div>
-
-                <div
-                  className={styles.zoomBar}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <div
-                    className={styles.zoomTrack}
-                    ref={zoomTrackRef}
-                    onClick={handleZoomTrackClick}
-                    onMouseDown={(e) => {
-                      if (e.target === zoomTrackRef.current) {
-                        handleZoomTrackInteraction(e.clientX)
-                      }
-                    }}
-                  >
-                    <div
-                      className={styles.zoomIndicator}
-                      style={{
-                        left: `${zoomPercentage}%`,
-                        cursor: isDraggingZoom ? 'grabbing' : 'grab',
-                      }}
-                      onMouseDown={handleZoomIndicatorMouseDown}
-                      onTouchStart={handleZoomIndicatorTouchStart}
-                      onClick={(e) => e.stopPropagation()}
-                      role="slider"
-                      aria-label="Control de zoom"
-                      aria-valuemin={MIN_ZOOM}
-                      aria-valuemax={MAX_ZOOM}
-                      aria-valuenow={zoomLevel}
-                    />
-                  </div>
-                  <span className={styles.zoomLabel}>{Math.round(zoomLevel * 100)}%</span>
-                </div>
               </div>
             </motion.div>
+
+            <div
+              className={styles.zoomBar}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div
+                className={styles.zoomTrack}
+                ref={zoomTrackRef}
+                onClick={handleZoomTrackClick}
+                onMouseDown={(e) => {
+                  if (e.target === zoomTrackRef.current) {
+                    handleZoomTrackInteraction(e.clientX)
+                  }
+                }}
+              >
+                <div
+                  className={styles.zoomIndicator}
+                  style={{
+                    left: `${zoomPercentage}%`,
+                    cursor: isDraggingZoom ? 'grabbing' : 'grab',
+                  }}
+                  onMouseDown={handleZoomIndicatorMouseDown}
+                  onTouchStart={handleZoomIndicatorTouchStart}
+                  onClick={(e) => e.stopPropagation()}
+                  role="slider"
+                  aria-label="Control de zoom"
+                  aria-valuemin={MIN_ZOOM}
+                  aria-valuemax={MAX_ZOOM}
+                  aria-valuenow={zoomLevel}
+                />
+              </div>
+              <span className={styles.zoomLabel}>{Math.round(zoomLevel * 100)}%</span>
+            </div>
 
             <button
               className={styles.closeBtn}

@@ -177,6 +177,8 @@
   border-radius: var(--radius-full);
   border: 1px solid rgba(213, 158, 82, 0.2);
   z-index: 5;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .zoomTrack {
@@ -229,81 +231,35 @@
 
 @media (max-width: 768px) {
   .container {
-    padding: var(--space-8);
-  }
-
-  .imageWrapper {
-    height: 50vh;
-    border-radius: var(--radius-md);
-  }
-
-  .closeBtn {
-    top: var(--space-4);
-    right: var(--space-4);
-    width: 40px;
-    height: 40px;
-  }
-
-  .navBtn {
-    width: 42px;
-    height: 42px;
-  }
-
-  .navBtnPrev {
-    left: var(--space-4);
-  }
-
-  .navBtnNext {
-    right: var(--space-4);
-  }
-
-  .counter {
-    bottom: var(--space-4);
-    font-size: 0.875rem;
-  }
-
-  .dots {
-    bottom: var(--space-14);
-  }
-
-  .zoomBar {
-    bottom: var(--space-3);
-  }
-
-  .zoomTrack {
-    width: 80px;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: var(--space-3);
+    padding: var(--space-4);
     padding-top: calc(var(--header-height) + var(--space-4));
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    gap: var(--space-4);
   }
 
   .imageWrapper {
-    height: 45vh;
-    max-height: 320px;
+    height: 50vh;
+    max-height: 400px;
     width: 100%;
     flex-shrink: 0;
-    margin-bottom: var(--space-6);
+    border-radius: var(--radius-md);
   }
 
   .closeBtn {
     top: calc(var(--header-height) + var(--space-3));
-    width: 40px;
-    height: 40px;
+    right: var(--space-3);
+    width: 42px;
+    height: 42px;
   }
 
   .navBtn {
     display: flex;
     width: 44px;
     height: 44px;
-    top: calc(var(--header-height) + var(--space-4));
-    transform: none;
+    top: calc(var(--header-height) + 4px + 50vh);
+    transform: translateY(-50%);
   }
 
   .navBtnPrev {
@@ -321,7 +277,7 @@
     transform: none;
     font-size: 0.8rem;
     padding: var(--space-1) var(--space-3);
-    margin-bottom: var(--space-3);
+    order: 2;
   }
 
   .dots {
@@ -330,7 +286,7 @@
     left: auto;
     transform: none;
     gap: var(--space-3);
-    margin-bottom: var(--space-4);
+    order: 3;
   }
 
   .dot {
@@ -343,7 +299,8 @@
     bottom: auto;
     left: auto;
     transform: none;
-    margin-bottom: var(--space-4);
+    order: 4;
+    padding: var(--space-2) var(--space-3);
   }
 
   .zoomTrack {
@@ -353,6 +310,37 @@
   .zoomLabel {
     font-size: 0.75rem;
     min-width: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: var(--space-3);
+    padding-top: calc(var(--header-height) + var(--space-3));
+    gap: var(--space-3);
+  }
+
+  .imageWrapper {
+    height: 45vh;
+    max-height: 320px;
+  }
+
+  .navBtn {
+    top: calc(var(--header-height) + 4px + 45vh);
+    width: 40px;
+    height: 40px;
+  }
+
+  .navBtnPrev {
+    left: var(--space-2);
+  }
+
+  .navBtnNext {
+    right: var(--space-2);
+  }
+
+  .zoomTrack {
+    width: 100px;
   }
 }
 
