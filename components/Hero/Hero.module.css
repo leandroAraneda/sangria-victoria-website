@@ -267,7 +267,7 @@
    Pero los acentos tropicales se actualizan
    ======================================== */
 [data-theme="light"] .title {
-  color: var(--marfil);
+  color: #E4CBBB;
 }
 
 [data-theme="light"] .subtitle {

@@ -78,8 +78,8 @@ export default function VentasPage() {
               <div className="gold-divider">
                 <span className="section-tag">Tienda Oficial</span>
               </div>
-              <h1 className="heading-xl" style={{ color: 'var(--marfil)' }}>
-                Nuestros <em style={{ color: 'var(--dorado)', fontStyle: 'italic' }}>Productos</em>
+              <h1 className="heading-xl" style={{ color: '#E4CBBB' }}>
+                Nuestros <em style={{ color: '#E89312', fontStyle: 'italic' }}>Productos</em>
               </h1>
               <p className={`body-lg ${styles.heroText}`}>
                 Sangría premium elaborada artesanalmente en Curicó. Despacho a todo Chile.
