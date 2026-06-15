@@ -260,6 +260,11 @@
 
   .navBtnPrevMobile,
   .navBtnNextMobile {
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+    transform: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -301,8 +306,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-3);
+    gap: var(--space-4);
     order: 3;
+    width: 100%;
+    max-width: 320px;
   }
 
   .dots {
@@ -313,6 +320,13 @@
     gap: var(--space-2);
     display: flex;
     align-items: center;
+  }
+  /* Botones < y > con margen extra hacia los dots */
+  .dotsRow > .navBtnPrevMobile {
+    margin-right: var(--space-1);
+  }
+  .dotsRow > .navBtnNextMobile {
+    margin-left: var(--space-1);
   }
 
   .dot {
