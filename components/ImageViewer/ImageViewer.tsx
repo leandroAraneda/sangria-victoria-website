@@ -94,6 +94,15 @@ export default function ImageViewer({
     }
   }
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (zoomLevel > 1 && e.touches.length === 1) {
+      e.preventDefault()
+      e.stopPropagation()
+      setIsDragging(true)
+      dragStart.current = { x: e.touches[0].clientX - positionRef.current.x, y: e.touches[0].clientY - positionRef.current.y }
+    }
+  }
+
   const handleMouseMove = (e: React.MouseEvent) => {
     if (isDragging && zoomLevel > 1) {
       const newX = e.clientX - dragStart.current.x
@@ -108,7 +117,25 @@ export default function ImageViewer({
     }
   }
 
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (isDragging && zoomLevel > 1 && e.touches.length === 1) {
+      const newX = e.touches[0].clientX - dragStart.current.x
+      const newY = e.touches[0].clientY - dragStart.current.y
+
+      const maxPan = calculateMaxPan()
+      const clampedX = Math.min(maxPan.x, Math.max(-maxPan.x, newX))
+      const clampedY = Math.min(maxPan.y, Math.max(-maxPan.y, newY))
+
+      positionRef.current = { x: clampedX, y: clampedY }
+      setPosition({ x: clampedX, y: clampedY })
+    }
+  }
+
   const handleMouseUp = () => {
+    setIsDragging(false)
+  }
+
+  const handleTouchEnd = () => {
     setIsDragging(false)
   }
 
@@ -145,6 +172,12 @@ export default function ImageViewer({
     setIsDraggingZoom(true)
   }
 
+  const handleZoomIndicatorTouchStart = (e: React.TouchEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDraggingZoom(true)
+  }
+
   useEffect(() => {
     if (!isDraggingZoom) return
 
@@ -152,16 +185,30 @@ export default function ImageViewer({
       handleZoomTrackInteraction(e.clientX)
     }
 
+    const handleTouchMoveGlobal = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        handleZoomTrackInteraction(e.touches[0].clientX)
+      }
+    }
+
     const handleMouseUpGlobal = () => {
+      setIsDraggingZoom(false)
+    }
+
+    const handleTouchEndGlobal = () => {
       setIsDraggingZoom(false)
     }
 
     window.addEventListener('mousemove', handleMouseMoveGlobal)
     window.addEventListener('mouseup', handleMouseUpGlobal)
+    window.addEventListener('touchmove', handleTouchMoveGlobal)
+    window.addEventListener('touchend', handleTouchEndGlobal)
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMoveGlobal)
       window.removeEventListener('mouseup', handleMouseUpGlobal)
+      window.removeEventListener('touchmove', handleTouchMoveGlobal)
+      window.removeEventListener('touchend', handleTouchEndGlobal)
     }
   }, [isDraggingZoom])
 
@@ -198,6 +245,9 @@ export default function ImageViewer({
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
                 onMouseLeave={handleMouseLeave}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
                 style={{
                   cursor: isDragging ? 'grabbing' : zoomLevel > 1 ? 'grab' : 'zoom-in',
                 }}
@@ -244,6 +294,7 @@ export default function ImageViewer({
                         cursor: isDraggingZoom ? 'grabbing' : 'grab',
                       }}
                       onMouseDown={handleZoomIndicatorMouseDown}
+                      onTouchStart={handleZoomIndicatorTouchStart}
                       onClick={(e) => e.stopPropagation()}
                       role="slider"
                       aria-label="Control de zoom"
