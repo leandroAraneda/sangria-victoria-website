@@ -4,6 +4,18 @@
   position: relative;
 }
 
+/* Background tropical muy sutil */
+.section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 80% 20%, var(--tropical-azul-mist) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 35% at 15% 75%, var(--tropical-verde-mist) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
 [data-theme="light"] .section::after,
 .section::after {
   display: none;
@@ -13,6 +25,8 @@
   max-width: 900px;
   margin: 0 auto;
   padding: 0 var(--space-6);
+  position: relative;
+  z-index: 1;
 }
 
 .header {
@@ -27,8 +41,10 @@
 
 /* Slider */
 .sliderWrapper {
-  background: var(--surface);
-  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  border: 1px solid rgba(213, 158, 82, 0.2);
   border-radius: var(--radius-xl);
   padding: var(--space-12) var(--space-12);
   margin-bottom: var(--space-8);
@@ -36,6 +52,28 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+              inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Highlight tropical superior */
+.sliderWrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(74, 222, 128, 0.18) 30%,
+    rgba(213, 158, 82, 0.32) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
 }
 
 .slide {
@@ -122,8 +160,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(201, 161, 93, 0.1);
-  border: 1px solid rgba(201, 161, 93, 0.25);
+  background-color: rgba(213, 158, 82, 0.1);
+  border: 1px solid rgba(213, 158, 82, 0.25);
   border-radius: 50%;
   color: var(--dorado);
   transition: all var(--transition-base);
@@ -143,7 +181,7 @@
 .dot {
   width: 8px;
   height: 8px;
-  background-color: rgba(201, 161, 93, 0.25);
+  background-color: rgba(213, 158, 82, 0.25);
   border-radius: 50%;
   border: none;
   cursor: pointer;
@@ -223,20 +261,32 @@
   }
 }
 
-/* Light mode styles */
+/* Light mode styles — Paleta tropical cálida */
 [data-theme="light"] .section::after {
   display: none;
 }
 
 [data-theme="light"] .sliderWrapper {
-  background: #FFFFFF;
-  border: 1px solid rgba(232, 155, 45, 0.4);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  background: var(--surface);
+  border: 1px solid rgba(232, 147, 18, 0.4);
+  box-shadow: var(--shadow-tropical);
+  position: relative;
+}
+
+/* Highlight tropical superior en slider (light) */
+[data-theme="light"] .sliderWrapper::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--tropical-verde-soft) 30%,
+    rgba(232, 147, 18, 0.35) 70%,
+    transparent 100%
+  );
 }
 
 [data-theme="light"] .quoteIcon {
   color: var(--dorado);
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 [data-theme="light"] .quoteText {
@@ -244,29 +294,44 @@
 }
 
 [data-theme="light"] .author {
-  border-top-color: rgba(232, 155, 45, 0.3);
+  border-top-color: rgba(232, 147, 18, 0.3);
 }
 
 [data-theme="light"] .authorName {
   color: var(--text-primary);
 }
 
+[data-theme="light"] .authorAvatar {
+  border-color: var(--dorado);
+  box-shadow: 0 0 0 3px rgba(126, 150, 60, 0.1);
+}
+
 [data-theme="light"] .navBtn {
-  background-color: rgba(232, 155, 45, 0.15);
-  border: 1px solid rgba(232, 155, 45, 0.6);
-  color: #B57520;
+  background-color: rgba(232, 147, 18, 0.12);
+  border: 1px solid rgba(232, 147, 18, 0.6);
+  color: var(--dorado-dark);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 [data-theme="light"] .navBtn:hover {
   background-color: var(--dorado);
   border-color: var(--dorado);
-  color: #FFFFFF;
+  color: var(--blanco);
+  box-shadow: 0 0 0 4px rgba(126, 150, 60, 0.12),
+              0 0 16px rgba(232, 147, 18, 0.3);
 }
 
 [data-theme="light"] .dot {
-  background-color: rgba(232, 155, 45, 0.45);
+  background-color: rgba(232, 147, 18, 0.4);
 }
 
 [data-theme="light"] .dotActive {
   background-color: var(--dorado);
+  box-shadow: 0 0 8px rgba(232, 147, 18, 0.5);
+}
+
+[data-theme="light"] .thumbnailActive .thumbnailImg {
+  border-color: var(--dorado);
+  box-shadow: 0 0 0 3px rgba(126, 150, 60, 0.12);
 }

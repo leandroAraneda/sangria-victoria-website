@@ -9,11 +9,24 @@
   display: none;
 }
 
+/* Fondo tropical sutil preservando la base ciruela oscuro */
+.section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 0%, var(--tropical-azul-mist) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 35% at 85% 100%, var(--tropical-verde-mist) 0%, transparent 60%);
+  pointer-events: none;
+}
+
 .container {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 var(--space-6);
+  position: relative;
+  z-index: 1;
 }
 
 .layout {
@@ -50,21 +63,27 @@
   align-items: flex-start;
   gap: var(--space-4);
   padding: var(--space-4);
-  background: var(--surface);
-  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(213, 158, 82, 0.16);
   border-radius: var(--radius-md);
-  transition: border-color var(--transition-base);
+  transition: border-color var(--transition-base),
+              background var(--transition-base),
+              transform var(--transition-base);
 }
 
 .contactCard:hover {
-  border-color: var(--dorado);
+  border-color: rgba(213, 158, 82, 0.4);
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateX(2px);
 }
 
 .contactIcon {
   width: 40px;
   height: 40px;
-  background: rgba(201,161,93,0.1);
-  border: 1px solid rgba(201,161,93,0.2);
+  background: rgba(213, 158, 82,0.1);
+  border: 1px solid rgba(213, 158, 82,0.2);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -121,7 +140,7 @@
   align-items: center;
   gap: var(--space-2);
   padding: 9px 18px;
-  border: 1px solid rgba(201,161,93,0.25);
+  border: 1px solid rgba(213, 158, 82,0.25);
   border-radius: var(--radius-md);
   font-size: 0.875rem;
   font-weight: 500;
@@ -132,15 +151,41 @@
 .socialBtn:hover {
   border-color: var(--dorado);
   color: var(--dorado);
-  background: rgba(201,161,93,0.05);
+  background: rgba(213, 158, 82,0.05);
 }
 
 /* Form */
 .formWrapper {
-  background: var(--surface);
-  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px) saturate(130%);
+  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  border: 1px solid rgba(213, 158, 82, 0.2);
   border-radius: var(--radius-xl);
   padding: var(--space-8);
+  position: relative;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4),
+              inset 0 1px 0 rgba(255, 255, 255, 0.04),
+              0 0 0 1px rgba(213, 158, 82, 0.04);
+}
+
+/* Highlight tropical sutil */
+.formWrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(74, 222, 128, 0.18) 30%,
+    rgba(213, 158, 82, 0.32) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+  border-top-left-radius: var(--radius-xl);
+  border-top-right-radius: var(--radius-xl);
 }
 
 .formTitle {
@@ -199,7 +244,7 @@
 
 .select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23C9A15D' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23D59E52' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   cursor: pointer;
@@ -250,8 +295,8 @@
 .successIcon {
   width: 72px;
   height: 72px;
-  background: rgba(201,161,93,0.1);
-  border: 1px solid rgba(201,161,93,0.3);
+  background: rgba(213, 158, 82,0.1);
+  border: 1px solid rgba(213, 158, 82,0.3);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -281,44 +326,64 @@
   }
 }
 
-/* Light mode styles */
+/* Light mode styles — Paleta tropical cálida */
 [data-theme="light"] .section::after {
   display: none;
 }
 
 [data-theme="light"] .select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23B57520' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23E89312' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-color: var(--bg-tertiary);
 }
 
 [data-theme="light"] .select:hover {
   border-color: var(--dorado);
+  background-color: var(--surface);
 }
 
 [data-theme="light"] .select:focus {
   border-color: var(--dorado);
-  box-shadow: 0 0 0 3px rgba(232, 155, 45, 0.15);
+  box-shadow: 0 0 0 3px rgba(232, 147, 18, 0.15),
+              0 0 16px rgba(126, 150, 60, 0.08);
 }
 
 [data-theme="light"] .select option {
-  background: #FAF4E3;
-  color: #2A1A0A;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
   padding: 10px 14px;
   font-weight: 500;
 }
 
 [data-theme="light"] .select option:checked,
 [data-theme="light"] .select option:hover {
-  background: linear-gradient(90deg, rgba(232, 155, 45, 0.2), rgba(232, 155, 45, 0.1));
-  color: #B57520;
+  background: linear-gradient(90deg, rgba(232, 147, 18, 0.2), rgba(232, 147, 18, 0.1));
+  color: var(--dorado-dark);
 }
 
 [data-theme="light"] .socialBtn {
-  border: 1px solid rgba(232, 155, 45, 0.5);
+  border: 1px solid rgba(232, 147, 18, 0.5);
   color: var(--text-secondary);
+  background: var(--surface);
+  box-shadow: 0 2px 8px rgba(43, 36, 32, 0.04);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 [data-theme="light"] .socialBtn:hover {
   border-color: var(--dorado);
-  color: #B57520;
-  background: rgba(232, 155, 45, 0.08);
+  color: var(--dorado-dark);
+  background: rgba(232, 147, 18, 0.08);
+  box-shadow: 0 4px 12px rgba(43, 36, 32, 0.08),
+              0 0 0 3px rgba(126, 150, 60, 0.08);
+}
+
+/* Highlight tropical sutil en formWrapper */
+[data-theme="light"] .formWrapper::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--tropical-verde-soft) 30%,
+    rgba(232, 147, 18, 0.35) 70%,
+    transparent 100%
+  );
 }

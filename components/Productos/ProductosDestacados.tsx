@@ -26,6 +26,15 @@ export default function ProductosDestacados() {
 
   return (
     <section id="productos" className={styles.section} aria-labelledby="productos-title">
+      {/* Wave divider tropical superior */}
+      <div className={styles.waveTop} aria-hidden="true">
+        <svg viewBox="0 0 1440 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M0,25 C180,0 360,50 540,25 C720,0 900,50 1080,25 C1260,0 1440,50 1440,25 L1440,50 L0,50 Z"
+            fill="var(--bg-primary)"
+          />
+        </svg>
+      </div>
       <div className={styles.container}>
         {/* Header */}
         <motion.div

@@ -78,7 +78,7 @@ export default function VentasPage() {
               <div className="gold-divider">
                 <span className="section-tag">Tienda Oficial</span>
               </div>
-              <h1 className="heading-xl" style={{ color: '#F8F5EF' }}>
+              <h1 className="heading-xl" style={{ color: 'var(--marfil)' }}>
                 Nuestros <em style={{ color: 'var(--dorado)', fontStyle: 'italic' }}>Productos</em>
               </h1>
               <p className={`body-lg ${styles.heroText}`}>

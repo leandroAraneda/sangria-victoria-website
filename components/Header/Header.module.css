@@ -5,7 +5,7 @@
   right: 0;
   z-index: 1000;
   height: var(--header-height);
-  transition: background-color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
 }
 
 .transparent {
@@ -13,40 +13,76 @@
 }
 
 .scrolled {
-  background-color: var(--header-scrolled-bg, rgba(17, 11, 15, 0.95));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
-  border-bottom: 1px solid var(--border-color);
+  background-color: rgba(12, 9, 14, 0.78);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.5),
+              0 1px 0 0 rgba(213, 158, 82, 0.08);
+  border-bottom: 1px solid rgba(213, 158, 82, 0.18);
+}
+
+/* Sutil glow tropical en la línea inferior del header */
+.scrolled::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(74, 222, 128, 0.18) 25%,
+    rgba(213, 158, 82, 0.28) 50%,
+    rgba(56, 189, 248, 0.18) 75%,
+    transparent 100%
+  );
+  pointer-events: none;
+  opacity: 0.7;
 }
 
 [data-theme="light"] .scrolled {
-  background-color: rgba(250, 244, 227, 0.95);
-  box-shadow: 0 4px 24px rgba(196, 74, 42, 0.1);
-  border-bottom: 1px solid rgba(232, 155, 45, 0.3);
+  background-color: rgba(251, 249, 241, 0.92);
+  box-shadow: var(--shadow-tropical);
+  border-bottom: 1px solid rgba(232, 147, 18, 0.3);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+}
+
+/* Glow tropical cálido en la línea inferior del header (light) */
+[data-theme="light"] .scrolled::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(126, 150, 60, 0.25) 25%,
+    rgba(232, 147, 18, 0.4) 50%,
+    rgba(91, 168, 201, 0.20) 75%,
+    transparent 100%
+  );
+  opacity: 0.7;
 }
 
 /* En modo claro, el header scrolled tiene fondo crema,
    por lo que el texto debe ser oscuro */
 [data-theme="light"] .scrolled .logoSub {
-  color: #2A1A0A;
+  color: var(--text-primary);
 }
 
 [data-theme="light"] .scrolled .navLink {
-  color: rgba(42, 26, 10, 0.85);
+  color: var(--text-secondary);
 }
 
 [data-theme="light"] .scrolled .menuLine {
-  background-color: #2A1A0A;
+  background-color: var(--text-primary);
 }
 
 [data-theme="light"] .scrolled .cartBtn {
-  color: #2A1A0A;
+  color: var(--text-primary);
 }
 
 [data-theme="light"] .scrolled .themeToggle {
-  color: #2A1A0A;
-  border-color: rgba(232, 155, 45, 0.5);
+  color: var(--text-primary);
+  border-color: rgba(232, 147, 18, 0.5);
 }
 
 .container {
@@ -83,6 +119,27 @@
   color: var(--dorado);
   border: 1.5px solid var(--dorado);
   flex-shrink: 0;
+  position: relative;
+  box-shadow: 0 0 0 0 rgba(213, 158, 82, 0.4);
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+/* Sutil halo dorado tropical en el logo */
+.logoIcon::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(213, 158, 82, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+.logo:hover .logoIcon {
+  transform: rotate(-6deg) scale(1.04);
+  box-shadow: 0 0 0 4px rgba(213, 158, 82, 0.08),
+              0 0 20px rgba(213, 158, 82, 0.25);
 }
 
 .logoText {
@@ -104,7 +161,7 @@
   font-family: var(--font-heading);
   font-size: 1.2rem;
   font-weight: 700;
-  color: #F8F5EF;
+  color: var(--marfil);
   letter-spacing: 0.02em;
 }
 
@@ -129,7 +186,7 @@
   font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.04em;
-  color: rgba(248, 245, 239, 0.92);
+  color: rgba(228, 203, 187, 0.92);
   text-decoration: none;
   padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-sm);
@@ -139,7 +196,7 @@
 
 .navLink:hover {
   color: var(--dorado);
-  background-color: rgba(201, 161, 93, 0.08);
+  background-color: rgba(213, 158, 82, 0.08);
 }
 
 /* ===== ACTIONS ===== */
@@ -169,7 +226,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  color: #F8F5EF;
+  color: var(--marfil);
   border-radius: var(--radius-sm);
   transition: color var(--transition-fast), background-color var(--transition-fast);
   cursor: pointer;
@@ -177,7 +234,7 @@
 
 .cartBtn:hover {
   color: var(--dorado);
-  background-color: rgba(201, 161, 93, 0.1);
+  background-color: rgba(213, 158, 82, 0.1);
 }
 
 .themeToggle {
@@ -186,20 +243,27 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  color: #F8F5EF;
+  color: var(--marfil);
   background-color: transparent;
-  border: 1px solid rgba(201, 161, 93, 0.4);
+  border: 1px solid rgba(213, 158, 82, 0.4);
   border-radius: 50%;
   cursor: pointer;
-  transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+  transition: color var(--transition-fast),
+              background-color var(--transition-fast),
+              border-color var(--transition-fast),
+              transform var(--transition-fast),
+              box-shadow var(--transition-fast);
   flex-shrink: 0;
+  position: relative;
 }
 
 .themeToggle:hover {
   color: var(--dorado);
-  background-color: rgba(232, 155, 45, 0.1);
+  background-color: rgba(213, 158, 82, 0.1);
   border-color: var(--dorado);
   transform: rotate(20deg);
+  box-shadow: 0 0 0 4px rgba(213, 158, 82, 0.06),
+              0 0 20px rgba(213, 158, 82, 0.15);
 }
 
 .themeToggle svg {
@@ -221,7 +285,14 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 0 0 rgba(140, 45, 74, 0.4);
+}
+
+.cartBtn:hover .cartCount {
+  box-shadow: 0 0 0 4px rgba(140, 45, 74, 0.08),
+              0 0 12px rgba(140, 45, 74, 0.4);
+  transform: scale(1.05);
 }
 
 .buyBtn {
@@ -247,7 +318,7 @@
   display: block;
   width: 100%;
   height: 2px;
-  background-color: #F8F5EF;
+  background-color: var(--marfil);
   border-radius: 2px;
   transition: all var(--transition-base);
   transform-origin: center;
@@ -273,18 +344,26 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--mobile-menu-bg, rgba(17, 8, 14, 0.98));
-  backdrop-filter: blur(12px);
+  background-color: var(--mobile-menu-bg, rgba(12, 9, 14, 0.92));
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
   z-index: 999;
   transform: translateX(100%);
   transition: transform var(--transition-base), background-color 0.3s ease;
   overflow-y: auto;
   padding: var(--space-8) var(--space-6);
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid rgba(213, 158, 82, 0.18);
+  background-image:
+    radial-gradient(ellipse 70% 30% at 50% 0%, rgba(74, 222, 128, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 25% at 80% 100%, rgba(56, 189, 248, 0.04) 0%, transparent 60%);
 }
 
 [data-theme="light"] .mobileMenu {
-  background-color: rgba(250, 244, 227, 0.98);
+  background-color: rgba(251, 249, 241, 0.98);
+  background-image:
+    radial-gradient(ellipse 70% 30% at 50% 0%, rgba(126, 150, 60, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 25% at 80% 100%, rgba(91, 168, 201, 0.06) 0%, transparent 60%);
+  border-top-color: rgba(232, 147, 18, 0.3);
 }
 
 .mobileMenuOpen {

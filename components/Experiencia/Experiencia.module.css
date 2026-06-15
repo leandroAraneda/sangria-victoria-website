@@ -17,13 +17,19 @@
 .bgOverlay {
   position: absolute;
   inset: 0;
-  background: var(--bg-primary);
+  background:
+    /* Glow tropical más fuerte en esta sección
+       (recetas con hielo, momentos refrescantes) */
+    radial-gradient(ellipse 70% 50% at 30% 20%, var(--tropical-verde-soft) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 45% at 80% 80%, var(--tropical-azul-soft) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, var(--tropical-citrico-soft) 0%, transparent 60%),
+    var(--bg-primary);
   opacity: 1;
 }
 
 .container {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 var(--space-6);
@@ -54,35 +60,70 @@
 
 /* Card */
 .card {
-  background: var(--surface);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  border: 1px solid rgba(213, 158, 82, 0.18);
   border-radius: var(--radius-lg);
   padding: var(--space-8) var(--space-6);
-  transition: border-color var(--transition-base), background var(--transition-base);
+  transition: border-color var(--transition-base),
+              background var(--transition-base),
+              transform var(--transition-base),
+              box-shadow var(--transition-base);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sutil highlight tropical en la esquina superior */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(74, 222, 128, 0.15) 30%,
+    rgba(213, 158, 82, 0.25) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
 }
 
 .card:hover {
-  border-color: var(--dorado);
-  background: var(--surface-hover);
+  border-color: rgba(213, 158, 82, 0.4);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45),
+              0 0 0 1px rgba(213, 158, 82, 0.12),
+              0 0 60px rgba(56, 189, 248, 0.04);
 }
 
 .iconWrapper {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, rgba(201, 161, 93, 0.15), rgba(201, 161, 93, 0.05));
-  border: 1px solid rgba(201, 161, 93, 0.3);
+  background: linear-gradient(135deg, rgba(213, 158, 82, 0.15), rgba(213, 158, 82, 0.05));
+  border: 1px solid rgba(213, 158, 82, 0.3);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--dorado);
   margin-bottom: var(--space-5);
-  transition: background var(--transition-base);
+  transition: background var(--transition-base),
+              border-color var(--transition-base),
+              transform var(--transition-base);
+  position: relative;
 }
 
 .card:hover .iconWrapper {
-  background: linear-gradient(135deg, rgba(201, 161, 93, 0.3), rgba(201, 161, 93, 0.1));
+  background: linear-gradient(135deg, rgba(213, 158, 82, 0.3), rgba(213, 158, 82, 0.1));
+  border-color: rgba(213, 158, 82, 0.5);
+  transform: rotate(-3deg) scale(1.05);
+  box-shadow: 0 0 24px rgba(213, 158, 82, 0.15);
 }
 
 .cardTitle {

@@ -5,37 +5,126 @@
 /* CSS Custom Properties (Design Tokens) */
 :root {
   /* Brand Colors */
-  --burdeo-premium: #6A0F1D;
-  --burdeo-oscuro: #4A0812;
-  --dorado: #C9A15D;
-  --dorado-light: #e4c08a;
-  --dorado-dark: #a07830;
-  --marfil: #F8F5EF;
+  --burdeo-premium: #8C2D4A;
+  --burdeo-oscuro: #5C1D32;
+  --dorado: #D59E52;
+  --dorado-light: #E8B872;
+  --dorado-dark: #A87632;
+  --rojo-acento: #DD112D;
+  --marfil: #E4CBBB;
   --blanco: #FFFFFF;
-  --negro: #111111;
-  --gris: #6D6D6D;
-  --gris-light: #9D9D9D;
-  --gris-dark: #3D3D3D;
-  --gris-bg: #1a1a1a;
+  --negro: #0C090E;
+  --gris: #8B7B82;
+  --gris-light: #A89BA0;
+  --gris-dark: #4A3D44;
+  --gris-bg: #3B2D39;
+
+  /* ========================================
+     TROPICAL ACCENTS — complementarios sutiles
+     Pensados para añadir frescura visual sin
+     reemplazar la paleta de marca.
+     Se usan a baja opacidad en gradientes,
+     glows, glassmorphism y animaciones.
+     ======================================== */
+  --tropical-verde: rgba(74, 222, 128, 0.55);          /* Verde hoja tropical */
+  --tropical-verde-soft: rgba(74, 222, 128, 0.10);
+  --tropical-verde-mist: rgba(74, 222, 128, 0.04);
+  --tropical-azul: rgba(56, 189, 248, 0.50);           /* Azul océano */
+  --tropical-azul-soft: rgba(56, 189, 248, 0.10);
+  --tropical-azul-mist: rgba(56, 189, 248, 0.04);
+  --tropical-citrico: rgba(250, 204, 21, 0.40);        /* Toque cítrico (lima) */
+  --tropical-citrico-soft: rgba(250, 204, 21, 0.08);
+  --tropical-coral: rgba(255, 138, 101, 0.45);          /* Coral fresco */
+
+  /* Gradientes tropicales */
+  --gradient-tropical-glow: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    var(--tropical-verde-soft) 0%,
+    var(--tropical-azul-soft) 35%,
+    transparent 70%
+  );
+  --gradient-tropical-deep: radial-gradient(
+    ellipse 70% 50% at 80% 100%,
+    var(--tropical-verde-soft) 0%,
+    transparent 60%
+  );
+  --gradient-tropical-wave: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--tropical-azul-mist) 30%,
+    var(--tropical-verde-mist) 70%,
+    transparent 100%
+  );
+  --gradient-frost: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(56, 189, 248, 0.04) 50%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  --gradient-cocktail: linear-gradient(
+    135deg,
+    var(--burdeo-premium) 0%,
+    rgba(221, 17, 45, 0.65) 100%
+  );
+  --gradient-cold-glow: radial-gradient(
+    ellipse 60% 50% at 50% 50%,
+    var(--tropical-azul-soft) 0%,
+    transparent 70%
+  );
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-bg-hover: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(213, 158, 82, 0.18);
+  --glass-blur: 16px;
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  /* Sombras tropicales (profundidad) */
+  --shadow-tropical: 0 8px 32px rgba(0, 0, 0, 0.45),
+                     0 0 0 1px rgba(213, 158, 82, 0.06),
+                     0 0 80px rgba(74, 222, 128, 0.025);
+  --shadow-frost: 0 8px 32px rgba(0, 0, 0, 0.4),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.06),
+                  inset 0 -1px 0 rgba(56, 189, 248, 0.04);
+  --shadow-glow-cold: 0 0 24px rgba(56, 189, 248, 0.10),
+                      0 0 48px rgba(56, 189, 248, 0.04);
+  --shadow-glow-tropical: 0 0 24px rgba(74, 222, 128, 0.08),
+                          0 0 48px rgba(74, 222, 128, 0.03);
+  --shadow-glow-gold-strong: 0 0 32px rgba(213, 158, 82, 0.22),
+                             0 0 64px rgba(213, 158, 82, 0.08);
 
   /* Semantic tokens — Dark theme (default) */
   --bg-primary: var(--negro);
-  --bg-secondary: #1a1a1a;
-  --bg-tertiary: #222222;
+  --bg-secondary: #3B2D39;
+  --bg-tertiary: #2A2027;
   --text-primary: var(--marfil);
-  --text-secondary: rgba(248, 245, 239, 0.75);
-  --text-muted: rgba(248, 245, 239, 0.55);
+  --text-secondary: rgba(228, 203, 187, 0.78);
+  --text-muted: rgba(228, 203, 187, 0.55);
   --surface: rgba(255, 255, 255, 0.04);
   --surface-hover: rgba(255, 255, 255, 0.08);
-  --border-color: rgba(201, 161, 93, 0.2);
+  --border-color: rgba(213, 158, 82, 0.22);
   --border-subtle: rgba(255, 255, 255, 0.08);
   --scrollbar-track: var(--negro);
   --scrollbar-thumb: var(--burdeo-premium);
-  --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-  --overlay-bg: rgba(0, 0, 0, 0.6);
+  --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  --overlay-bg: rgba(12, 9, 14, 0.75);
 
   /* Verde sutil (Sangría cursiva) */
   --verde-cursiva: #7BA05B;
+
+  /* Glassmorphism Light Theme */
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-bg-hover: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(232, 155, 45, 0.3);
+  --glass-shadow: 0 8px 32px rgba(196, 74, 42, 0.08),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+  /* Tropicales light */
+  --tropical-verde-soft: rgba(74, 222, 128, 0.10);
+  --tropical-azul-soft: rgba(56, 189, 248, 0.08);
+  --tropical-verde-mist: rgba(74, 222, 128, 0.04);
+  --tropical-azul-mist: rgba(56, 189, 248, 0.03);
 
   /* Typography */
   --font-heading: var(--font-playfair), 'Playfair Display', Georgia, serif;
@@ -68,7 +157,7 @@
   --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
   --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
   --shadow-xl: 0 16px 64px rgba(0,0,0,0.6);
-  --shadow-gold: 0 4px 24px rgba(201,161,93,0.3);
+  --shadow-gold: 0 4px 24px rgba(213,158,82,0.32);
 
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -80,40 +169,72 @@
 }
 
 /* ========================================
-   Light Theme — inspirado en sangría naranja/dorada
+   Light Theme — Paleta tropical cálida
+   Blanco cálido · Crema suave · Naranja Victoria · Naranja tostado · Verde hoja · Carbón
    ======================================== */
 [data-theme="light"] {
-  --burdeo-premium: #C44A2A;
-  --burdeo-oscuro: #9A3520;
-  --dorado: #E89B2D;
-  --dorado-light: #F5B847;
-  --dorado-dark: #B57520;
-  --marfil: #2A1A0A;
+  --burdeo-premium: #CE4719;
+  --burdeo-oscuro: #A8380F;
+  --dorado: #E89312;
+  --dorado-light: #F5B033;
+  --dorado-dark: #B5750A;
+  --rojo-acento: #CE4719;
+  --marfil: #2B2420;
   --blanco: #FFFFFF;
-  --negro: #FAF4E3;
-  --gris: #6B5840;
-  --gris-light: #8B7355;
-  --gris-dark: #4A3820;
-  --gris-bg: #F0E8D0;
+  --negro: #FBF9F1;
+  --gris: #6B5F55;
+  --gris-light: #8B7E72;
+  --gris-dark: #4A403A;
+  --gris-bg: #E4D3B1;
+
+  /* Acentos tropicales para modo claro */
+  --tropical-verde: #7E963C;
+  --tropical-verde-soft: rgba(126, 150, 60, 0.12);
+  --tropical-verde-mist: rgba(126, 150, 60, 0.06);
+  --tropical-azul: #5BA8C9;
+  --tropical-azul-soft: rgba(91, 168, 201, 0.10);
+  --tropical-azul-mist: rgba(91, 168, 201, 0.05);
+  --tropical-citrico-soft: rgba(232, 147, 18, 0.10);
+  --tropical-coral: #CE4719;
+
+  /* Sombras tropicales light */
+  --shadow-tropical: 0 8px 32px rgba(43, 36, 32, 0.10),
+                     0 0 0 1px rgba(126, 150, 60, 0.04),
+                     0 0 80px rgba(232, 147, 18, 0.03);
+  --shadow-frost: 0 8px 32px rgba(91, 168, 201, 0.10),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --shadow-glow-cold: 0 0 24px rgba(91, 168, 201, 0.12),
+                      0 0 48px rgba(91, 168, 201, 0.05);
+  --shadow-glow-tropical: 0 0 24px rgba(126, 150, 60, 0.10),
+                          0 0 48px rgba(126, 150, 60, 0.04);
+  --shadow-glow-gold-strong: 0 0 32px rgba(232, 147, 18, 0.20),
+                             0 0 64px rgba(232, 147, 18, 0.08);
 
   /* Semantic tokens — Light theme */
-  --bg-primary: #FAF4E3;
-  --bg-secondary: #FFFFFF;
-  --bg-tertiary: #F5EDD8;
-  --text-primary: #2A1A0A;
-  --text-secondary: rgba(58, 26, 10, 0.75);
-  --text-muted: rgba(58, 26, 10, 0.55);
+  --bg-primary: #FBF9F1;
+  --bg-secondary: #E4D3B1;
+  --bg-tertiary: #F0E2BE;
+  --text-primary: #2B2420;
+  --text-secondary: rgba(43, 36, 32, 0.78);
+  --text-muted: rgba(43, 36, 32, 0.55);
   --surface: #FFFFFF;
-  --surface-hover: #F5EDD8;
-  --border-color: rgba(232, 155, 45, 0.3);
-  --border-subtle: rgba(58, 26, 10, 0.1);
-  --scrollbar-track: #F0E8D0;
-  --scrollbar-thumb: #E89B2D;
-  --card-shadow: 0 4px 24px rgba(196, 74, 42, 0.12);
-  --overlay-bg: rgba(42, 26, 10, 0.5);
+  --surface-hover: #F5EBD3;
+  --border-color: rgba(232, 147, 18, 0.28);
+  --border-subtle: rgba(43, 36, 32, 0.10);
+  --scrollbar-track: #E4D3B1;
+  --scrollbar-thumb: #E89312;
+  --card-shadow: 0 4px 24px rgba(43, 36, 32, 0.10);
+  --overlay-bg: rgba(43, 36, 32, 0.45);
 
   /* Verde sutil */
-  --verde-cursiva: #6B8E3D;
+  --verde-cursiva: #7E963C;
+
+  /* Glassmorphism Light Theme */
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-bg-hover: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(232, 147, 18, 0.25);
+  --glass-shadow: 0 8px 32px rgba(43, 36, 32, 0.08),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 /* ========================================
@@ -141,6 +262,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease, color 0.3s ease;
+  text-rendering: optimizeLegibility;
+}
+
+/* Selección de texto con acento dorado */
+::selection {
+  background-color: rgba(213, 158, 82, 0.25);
+  color: var(--marfil);
+  text-shadow: none;
 }
 
 img {
@@ -184,6 +313,8 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 .heading-lg {
@@ -191,6 +322,9 @@ h1, h2, h3, h4, h5, h6 {
   font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 700;
   line-height: 1.15;
+  letter-spacing: -0.015em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 .heading-md {
@@ -198,6 +332,9 @@ h1, h2, h3, h4, h5, h6 {
   font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: 700;
   line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 .heading-sm {
@@ -205,6 +342,8 @@ h1, h2, h3, h4, h5, h6 {
   font-size: clamp(1.2rem, 2vw, 1.75rem);
   font-weight: 600;
   line-height: 1.3;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 .body-lg {
@@ -397,10 +536,224 @@ h1, h2, h3, h4, h5, h6 {
   to { transform: rotate(360deg); }
 }
 
+/* --- Tropical Animations --- */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.015);
+    filter: brightness(1.05);
+  }
+}
+
+@keyframes floatSoft {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes waveSlide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes frostGlow {
+  0%, 100% {
+    box-shadow: 0 0 24px rgba(56, 189, 248, 0.08),
+                0 0 48px rgba(56, 189, 248, 0.03);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(56, 189, 248, 0.16),
+                0 0 64px rgba(56, 189, 248, 0.06);
+  }
+}
+
+@keyframes shimmerGold {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes leafSway {
+  0%, 100% { transform: rotate(-1.5deg) translateY(0); }
+  50% { transform: rotate(1.5deg) translateY(-2px); }
+}
+
+@keyframes pulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(213, 158, 82, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 16px rgba(213, 158, 82, 0);
+  }
+}
+
+@keyframes bubble {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  20% { opacity: 0.6; }
+  100% {
+    transform: translateY(-180px) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
 .animate-fadeInUp {
   animation: fadeInUp 0.8s ease forwards;
 }
 
 .animate-fadeIn {
   animation: fadeIn 0.6s ease forwards;
+}
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.animate-float-soft {
+  animation: floatSoft 5s ease-in-out infinite;
+}
+
+.animate-frost-glow {
+  animation: frostGlow 4s ease-in-out infinite;
+}
+
+/* ========================================
+   Tropical Utility Classes
+   ======================================== */
+
+/* Glassmorphism genérico reutilizable */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-lg);
+}
+
+.glass-hover {
+  transition: background var(--transition-base),
+              border-color var(--transition-base),
+              transform var(--transition-base),
+              box-shadow var(--transition-base);
+}
+
+.glass-hover:hover {
+  background: var(--glass-bg-hover);
+  border-color: rgba(213, 158, 82, 0.35);
+  box-shadow: var(--shadow-tropical);
+}
+
+/* Tropical glow utility (sutil) */
+.glow-tropical {
+  box-shadow: var(--shadow-glow-tropical);
+}
+
+.glow-cold {
+  box-shadow: var(--shadow-glow-cold);
+}
+
+.glow-gold-strong {
+  box-shadow: var(--shadow-glow-gold-strong);
+}
+
+/* Section background decorativo tropical
+   (aplicable a <section> como ::before o <div>) */
+.tropical-bg {
+  position: relative;
+}
+
+.tropical-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-tropical-glow);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+/* Wave divider — separador SVG tropical sutil entre secciones */
+.wave-divider {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  overflow: hidden;
+  pointer-events: none;
+  margin: -1px 0;
+  z-index: 2;
+}
+
+.wave-divider svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  display: block;
+}
+
+.wave-divider-flip svg {
+  transform: rotate(180deg);
+  top: 0;
+  bottom: auto;
+}
+
+/* Frost overlay para imágenes "cold" (botellas) */
+.frost-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.frost-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 25%, rgba(255, 255, 255, 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 75% 70%, rgba(56, 189, 248, 0.08) 0%, transparent 65%),
+    linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.04) 60%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: screen;
+  opacity: 0.8;
+  transition: opacity var(--transition-base);
+}
+
+.frost-overlay:hover::after {
+  opacity: 1;
+}
+
+/* Shimmer gold text (acento) */
+.text-shimmer {
+  background: linear-gradient(
+    100deg,
+    var(--dorado) 0%,
+    var(--dorado-light) 25%,
+    var(--marfil) 50%,
+    var(--dorado-light) 75%,
+    var(--dorado) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerGold 4s linear infinite;
+}
+
+/* Gradient dorado para texto destacado (más sutil) */
+.text-gold-gradient {
+  background: linear-gradient(180deg, var(--dorado-light) 0%, var(--dorado) 60%, var(--dorado-dark) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--dorado); /* Fallback */
 }

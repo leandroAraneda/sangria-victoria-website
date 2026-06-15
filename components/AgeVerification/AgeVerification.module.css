@@ -12,8 +12,8 @@
 }
 
 .modal {
-  background: #111111;
-  border: 1px solid rgba(201, 161, 93, 0.3);
+  background: var(--negro);
+  border: 1px solid rgba(213, 158, 82, 0.3);
   border-radius: var(--radius-xl);
   padding: var(--space-10) var(--space-10);
   max-width: 480px;
@@ -25,9 +25,30 @@
   gap: var(--space-5);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.6), inset 0 0 80px rgba(106,15,29,0.08);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.6),
+              inset 0 0 80px rgba(140,45,74,0.1),
+              0 0 100px rgba(74, 222, 128, 0.04);
   animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
   opacity: 0;
+  backdrop-filter: blur(20px) saturate(130%);
+  -webkit-backdrop-filter: blur(20px) saturate(130%);
+}
+
+/* Fondo tropical sutil dentro del modal */
+.modal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 30% 20%, rgba(74, 222, 128, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 70% 80%, rgba(56, 189, 248, 0.04) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.modal > * {
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes fadeIn {
@@ -132,38 +153,49 @@
   line-height: 1.5;
   max-width: 340px;
   padding-top: var(--space-2);
-  border-top: 1px solid rgba(201,161,93,0.1);
+  border-top: 1px solid rgba(213,158,82,0.1);
 }
 
-/* Light mode styles */
+/* Light mode — Paleta tropical cálida */
 [data-theme="light"] .overlay {
-  background: rgba(250, 244, 227, 0.92);
+  background: rgba(43, 36, 32, 0.45);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 [data-theme="light"] .modal {
-  background: #FFFFFF;
-  border: 1px solid rgba(232, 155, 45, 0.4);
-  box-shadow: 0 32px 80px rgba(196, 74, 42, 0.15), inset 0 0 80px rgba(232, 155, 45, 0.05);
+  background: var(--surface);
+  border: 1px solid rgba(232, 147, 18, 0.4);
+  box-shadow: var(--shadow-tropical),
+              inset 0 0 80px rgba(126, 150, 60, 0.04);
+  backdrop-filter: blur(20px) saturate(130%);
+  -webkit-backdrop-filter: blur(20px) saturate(130%);
+}
+
+/* Fondo tropical sutil dentro del modal (light) */
+[data-theme="light"] .modal::after {
+  background:
+    radial-gradient(ellipse 60% 40% at 30% 20%, rgba(126, 150, 60, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 70% 80%, rgba(91, 168, 201, 0.05) 0%, transparent 60%);
 }
 
 [data-theme="light"] .title {
-  color: #2A1A0A;
+  color: var(--text-primary);
 }
 
 [data-theme="light"] .text {
-  color: rgba(42, 26, 10, 0.75);
+  color: var(--text-secondary);
 }
 
 [data-theme="light"] .brandSub {
-  color: rgba(42, 26, 10, 0.6);
+  color: var(--text-muted);
 }
 
 [data-theme="light"] .disclaimer {
-  color: rgba(42, 26, 10, 0.6);
-  border-top-color: rgba(232, 155, 45, 0.2);
+  color: var(--text-muted);
+  border-top-color: rgba(232, 147, 18, 0.2);
 }
 
 [data-theme="light"] .brandText {
-  color: #B57520;
+  color: var(--dorado-dark);
 }

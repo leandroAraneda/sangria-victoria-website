@@ -15,6 +15,15 @@ export default function Footer() {
 
   return (
     <footer className={styles.footer} role="contentinfo">
+      {/* Wave divider tropical superior */}
+      <div className={styles.waveTop} aria-hidden="true">
+        <svg viewBox="0 0 1440 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M0,25 C180,50 360,0 540,25 C720,50 900,0 1080,25 C1260,50 1440,0 1440,25 L1440,50 L0,50 Z"
+            fill="var(--negro)"
+          />
+        </svg>
+      </div>
       <div className={styles.container}>
         <div className={styles.top}>
           {/* Brand */}

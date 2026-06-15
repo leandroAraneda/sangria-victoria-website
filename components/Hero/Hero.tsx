@@ -37,7 +37,7 @@ export default function Hero({ startAnimation = true }: HeroProps) {
   return (
     <section id="inicio" className={styles.hero} aria-label="Inicio - Sangría Victoria">
       {/* Background */}
-      <div className={styles.bgWrapper} ref={parallaxRef}>
+      <div className={`${styles.bgWrapper} frost-overlay`} ref={parallaxRef}>
         <Image
           src="/images/hero-bg.png"
           alt="Sangría Victoria Premium - Viñedos de Curicó"
@@ -110,17 +110,17 @@ export default function Hero({ startAnimation = true }: HeroProps) {
           variants={fadeUp}
         >
           <div className={styles.stat}>
-            <span className={styles.statNumber}>100%</span>
+            <span className={styles.statNumber} style={{ animationDelay: '0s' }}>100%</span>
             <span className={styles.statLabel}>Artesanal</span>
           </div>
           <div className={styles.statDivider} aria-hidden="true" />
           <div className={styles.stat}>
-            <span className={styles.statNumber}>+5</span>
+            <span className={styles.statNumber} style={{ animationDelay: '1.5s' }}>+5</span>
             <span className={styles.statLabel}>Variedades</span>
           </div>
           <div className={styles.statDivider} aria-hidden="true" />
           <div className={styles.stat}>
-            <span className={styles.statNumber}>Curicó</span>
+            <span className={styles.statNumber} style={{ animationDelay: '3s' }}>Curicó</span>
             <span className={styles.statLabel}>Valle Premium</span>
           </div>
         </motion.div>

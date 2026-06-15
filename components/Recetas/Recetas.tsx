@@ -8,7 +8,7 @@ import styles from './Recetas.module.css'
 
 const difficultyColor = {
   Fácil: '#4caf83',
-  Medio: '#C9A15D',
+  Medio: '#D59E52',
   Difícil: '#c96d5d',
 }
 

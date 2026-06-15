@@ -13,14 +13,18 @@
   bottom: 0;
   width: 420px;
   max-width: 100vw;
-  background: var(--bg-secondary);
-  border-left: 1px solid var(--border-color);
-  border-top: 1px solid var(--border-color);
+  background: rgba(59, 45, 57, 0.85);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border-left: 1px solid rgba(213, 158, 82, 0.18);
+  border-top: 1px solid rgba(213, 158, 82, 0.18);
   border-top-right-radius: var(--radius-lg);
   z-index: 201;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5),
+              inset 1px 0 0 rgba(255, 255, 255, 0.04);
 }
 
 /* Header */
@@ -107,14 +111,16 @@
   display: flex;
   gap: var(--space-3);
   padding: var(--space-3);
-  background: var(--surface);
-  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(213, 158, 82, 0.16);
   border-radius: var(--radius-lg);
-  transition: border-color var(--transition-base);
+  transition: border-color var(--transition-base),
+              background var(--transition-base);
 }
 
 .item:hover {
-  border-color: var(--dorado);
+  border-color: rgba(213, 158, 82, 0.4);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .itemImg {
@@ -177,7 +183,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(201,161,93,0.3);
+  border: 1px solid rgba(213, 158, 82,0.3);
   border-radius: var(--radius-sm);
   color: var(--dorado);
   transition: all var(--transition-fast);
@@ -279,8 +285,129 @@
 [data-theme="light"] .count {
   background: var(--dorado);
   color: var(--bg-primary);
+  box-shadow: 0 0 0 3px rgba(126, 150, 60, 0.12),
+              0 0 12px rgba(232, 147, 18, 0.25);
 }
 
 [data-theme="light"] .title {
   color: var(--text-primary);
+}
+
+[data-theme="light"] .backdrop {
+  background: rgba(43, 36, 32, 0.4);
+}
+
+[data-theme="light"] .drawer {
+  background: rgba(251, 249, 241, 0.92);
+  border-left: 1px solid rgba(232, 147, 18, 0.2);
+  border-top: 1px solid rgba(232, 147, 18, 0.2);
+  box-shadow: -20px 0 60px rgba(43, 36, 32, 0.15),
+              inset 1px 0 0 rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="light"] .header {
+  border-bottom-color: rgba(232, 147, 18, 0.2);
+}
+
+[data-theme="light"] .headerLeft {
+  color: var(--dorado);
+}
+
+[data-theme="light"] .closeBtn {
+  color: var(--gris);
+}
+
+[data-theme="light"] .closeBtn:hover {
+  color: var(--text-primary);
+  background: var(--surface-hover);
+}
+
+[data-theme="light"] .empty {
+  color: var(--gris);
+}
+
+[data-theme="light"] .item {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(232, 147, 18, 0.2);
+  box-shadow: 0 2px 8px rgba(43, 36, 32, 0.06);
+}
+
+[data-theme="light"] .item:hover {
+  border-color: rgba(232, 147, 18, 0.45);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+[data-theme="light"] .itemImg {
+  background: var(--surface);
+}
+
+[data-theme="light"] .itemName {
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .itemFormat {
+  color: var(--gris);
+}
+
+[data-theme="light"] .itemPrice {
+  color: var(--dorado);
+}
+
+[data-theme="light"] .qty {
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .qtyBtn {
+  color: var(--dorado);
+  border-color: rgba(232, 147, 18, 0.3);
+}
+
+[data-theme="light"] .qtyBtn:hover {
+  background: rgba(232, 147, 18, 0.08);
+}
+
+[data-theme="light"] .removeBtn {
+  color: var(--gris);
+}
+
+[data-theme="light"] .removeBtn:hover {
+  color: var(--rojo-acento);
+  background: rgba(206, 71, 25, 0.08);
+}
+
+[data-theme="light"] .summary {
+  border-top-color: rgba(232, 147, 18, 0.2);
+}
+
+[data-theme="light"] .summaryRow {
+  color: var(--gris);
+}
+
+[data-theme="light"] .shippingLabel {
+  color: var(--gris);
+}
+
+[data-theme="light"] .shippingVal {
+  color: var(--gris);
+}
+
+[data-theme="light"] .totalRow {
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .totalVal {
+  color: var(--dorado);
+}
+
+[data-theme="light"] .secureNote {
+  color: var(--gris);
+}
+
+[data-theme="light"] .checkoutBtn {
+  background: var(--dorado);
+  color: var(--bg-primary);
+}
+
+[data-theme="light"] .checkoutBtn:hover {
+  background: var(--dorado-light);
 }

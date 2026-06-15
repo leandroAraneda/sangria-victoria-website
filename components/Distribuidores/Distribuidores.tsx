@@ -6,7 +6,7 @@ import { distributors, regions } from '@/lib/data'
 import styles from './Distribuidores.module.css'
 
 const typeColors: Record<string, string> = {
-  Retail: '#C9A15D',
+  Retail: '#D59E52',
   Restaurante: '#4caf83',
   Hotel: '#6d9ecf',
   Supermercado: '#c96d5d',

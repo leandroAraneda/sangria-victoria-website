@@ -7,7 +7,7 @@
 /* Breadcrumb */
 .breadcrumb {
   background: rgba(255,255,255,0.03);
-  border-bottom: 1px solid rgba(201,161,93,0.1);
+  border-bottom: 1px solid rgba(213,158,82,0.1);
 }
 
 .breadcrumbInner {
@@ -69,14 +69,14 @@
   border-radius: var(--radius-xl);
   overflow: hidden;
   background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(201,161,93,0.15);
+  border: 1px solid rgba(213,158,82,0.15);
   cursor: zoom-in;
   transition: border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
 .mainImage:hover {
-  border-color: rgba(201, 161, 93, 0.5);
-  box-shadow: 0 0 20px rgba(201, 161, 93, 0.15);
+  border-color: rgba(213, 158, 82, 0.5);
+  box-shadow: 0 0 20px rgba(213, 158, 82, 0.15);
 }
 
 .badge {
@@ -130,7 +130,7 @@
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--dorado);
-  border: 1px solid rgba(201,161,93,0.35);
+  border: 1px solid rgba(213,158,82,0.35);
   border-radius: var(--radius-full);
   padding: 4px 14px;
 }
@@ -151,7 +151,7 @@
   gap: var(--space-4);
   padding: var(--space-4);
   background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(201,161,93,0.12);
+  border: 1px solid rgba(213,158,82,0.12);
   border-radius: var(--radius-lg);
 }
 
@@ -210,8 +210,8 @@
   align-items: center;
   gap: var(--space-4);
   padding: var(--space-5) 0;
-  border-top: 1px solid rgba(201,161,93,0.12);
-  border-bottom: 1px solid rgba(201,161,93,0.12);
+  border-top: 1px solid rgba(213,158,82,0.12);
+  border-bottom: 1px solid rgba(213,158,82,0.12);
 }
 
 .prices {
@@ -235,9 +235,9 @@
 }
 
 .discountBadge {
-  background: rgba(201,161,93,0.15);
+  background: rgba(213,158,82,0.15);
   color: var(--dorado);
-  border: 1px solid rgba(201,161,93,0.3);
+  border: 1px solid rgba(213,158,82,0.3);
   font-size: 0.875rem;
   font-weight: 600;
   padding: 5px 14px;
@@ -255,7 +255,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  border: 1px solid rgba(201,161,93,0.25);
+  border: 1px solid rgba(213,158,82,0.25);
   border-radius: var(--radius-md);
   padding: 8px 14px;
   flex-shrink: 0;
@@ -272,7 +272,7 @@
   transition: background var(--transition-fast);
 }
 
-.qtyBtn:hover { background: rgba(201,161,93,0.1); }
+.qtyBtn:hover { background: rgba(213,158,82,0.1); }
 
 .qtyValue {
   font-size: 1.0625rem;
@@ -291,13 +291,13 @@
 
 .addBtn {
   justify-content: center;
-  border: 1px solid rgba(201,161,93,0.35);
+  border: 1px solid rgba(213,158,82,0.35);
   color: var(--dorado);
   background: transparent;
 }
 
 .addBtn:hover {
-  background: rgba(201,161,93,0.08);
+  background: rgba(213,158,82,0.08);
 }
 
 .addedBtn {
@@ -341,7 +341,7 @@
 
 /* Tabs */
 .tabs {
-  border-top: 1px solid rgba(201,161,93,0.12);
+  border-top: 1px solid rgba(213,158,82,0.12);
   padding-top: var(--space-8);
   margin-bottom: var(--space-12);
 }
@@ -349,7 +349,7 @@
 .tabList {
   display: flex;
   gap: 0;
-  border-bottom: 1px solid rgba(201,161,93,0.15);
+  border-bottom: 1px solid rgba(213,158,82,0.15);
   margin-bottom: var(--space-6);
 }
 
@@ -411,7 +411,7 @@
   color: var(--gris-light);
   padding: var(--space-3) var(--space-4);
   background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(201,161,93,0.1);
+  border: 1px solid rgba(213,158,82,0.1);
   border-radius: var(--radius-md);
 }
 
@@ -433,14 +433,14 @@
 
 .relatedCard {
   background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(201,161,93,0.1);
+  border: 1px solid rgba(213,158,82,0.1);
   border-radius: var(--radius-xl);
   overflow: hidden;
   transition: all var(--transition-base);
 }
 
 .relatedCard:hover {
-  border-color: rgba(201,161,93,0.35);
+  border-color: rgba(213,158,82,0.35);
   transform: translateY(-4px);
 }
 
@@ -487,7 +487,7 @@
   align-items: center;
   gap: 10px;
   padding: 12px 20px;
-  background: rgba(26, 16, 24, 0.95);
+  background: rgba(59, 45, 57, 0.95);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(76, 175, 131, 0.4);
   border-radius: var(--radius-md);
@@ -536,20 +536,52 @@
 
 [data-theme="light"] .mainImage:hover {
   border-color: var(--dorado);
-  box-shadow: 0 0 30px rgba(232, 155, 45, 0.35), 0 0 0 1px rgba(232, 155, 45, 0.3);
+  box-shadow: 0 0 30px rgba(232, 147, 18, 0.32),
+              0 0 0 1px rgba(232, 147, 18, 0.3),
+              0 0 48px rgba(126, 150, 60, 0.08);
 }
 
 [data-theme="light"] .toast {
   background: var(--surface);
   color: var(--text-primary);
-  border-color: rgba(76, 175, 131, 0.5);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-color: rgba(126, 150, 60, 0.4);
+  box-shadow: var(--shadow-tropical);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 [data-theme="light"] .pairingItem {
   background: var(--surface);
-  border-color: rgba(232, 155, 45, 0.3);
+  border-color: rgba(232, 147, 18, 0.3);
   color: var(--text-secondary);
+  box-shadow: 0 2px 8px rgba(43, 36, 32, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Highlight tropical verde sutil en pairingItem */
+[data-theme="light"] .pairingItem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    var(--tropical-verde) 0%,
+    var(--dorado) 100%
+  );
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+[data-theme="light"] .pairingItem:hover {
+  border-color: rgba(232, 147, 18, 0.5);
+  box-shadow: 0 4px 16px rgba(43, 36, 32, 0.08),
+              0 0 0 1px rgba(126, 150, 60, 0.08);
 }
 
 [data-theme="light"] .listItem {

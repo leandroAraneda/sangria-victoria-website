@@ -13,7 +13,11 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 70% 40% at 50% 0%, rgba(106,15,29,0.12) 0%, transparent 70%);
+  background:
+    /* Burdeo radiente original (preservado) */
+    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(140, 45, 74,0.12) 0%, transparent 70%),
+    /* Acento tropical sutil en la parte inferior */
+    radial-gradient(ellipse 55% 30% at 50% 100%, var(--tropical-verde-mist) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -23,6 +27,7 @@
   margin: 0 auto;
   padding: 0 var(--space-6);
   position: relative;
+  z-index: 1;
 }
 
 .header {
@@ -103,7 +108,7 @@
   font-size: 0.9375rem;
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23C9A15D' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23D59E52' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   transition: border-color var(--transition-base);
@@ -127,7 +132,7 @@
 .typeBtn {
   padding: 8px 16px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(201,161,93,0.25);
+  border: 1px solid rgba(213, 158, 82,0.25);
   color: var(--gris-light);
   font-size: 0.8125rem;
   font-weight: 500;
@@ -163,8 +168,10 @@
 
 /* Card */
 .card {
-  background: var(--surface);
-  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(213, 158, 82, 0.18);
   border-radius: var(--radius-lg);
   padding: var(--space-6);
   display: flex;
@@ -174,9 +181,12 @@
 }
 
 .card:hover {
-  border-color: var(--dorado);
-  background: var(--surface-hover);
+  border-color: rgba(213, 158, 82, 0.4);
+  background: rgba(255, 255, 255, 0.06);
   transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4),
+              0 0 0 1px rgba(213, 158, 82, 0.08),
+              0 0 50px rgba(56, 189, 248, 0.03);
 }
 
 .cardHeader {
@@ -251,7 +261,7 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--dorado);
-  border: 1px solid rgba(201,161,93,0.3);
+  border: 1px solid rgba(213, 158, 82,0.3);
   border-radius: var(--radius-sm);
   padding: 8px 16px;
   margin-top: auto;
@@ -294,38 +304,39 @@
   }
 }
 
-/* Light mode styles */
+/* Light mode styles — Paleta tropical cálida */
 [data-theme="light"] .section::after {
   display: none;
 }
 
 [data-theme="light"] .select {
-  background-color: #FAF4E3;
-  border: 1px solid rgba(232, 155, 45, 0.4);
-  color: #2A1A0A;
+  background-color: var(--bg-tertiary);
+  border: 1px solid rgba(232, 147, 18, 0.4);
+  color: var(--text-primary);
   font-weight: 500;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23B57520' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23E89312' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
 }
 
 [data-theme="light"] .select:hover {
   border-color: var(--dorado);
-  background-color: #FFFFFF;
+  background-color: var(--surface);
 }
 
 [data-theme="light"] .select:focus {
   border-color: var(--dorado);
-  box-shadow: 0 0 0 3px rgba(232, 155, 45, 0.15);
+  box-shadow: 0 0 0 3px rgba(232, 147, 18, 0.15),
+              0 0 16px rgba(126, 150, 60, 0.08);
 }
 
 [data-theme="light"] .select option {
-  background: #FAF4E3;
-  color: #2A1A0A;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
   padding: 10px 14px;
   font-weight: 500;
 }
 
 [data-theme="light"] .select option:checked,
 [data-theme="light"] .select option:hover {
-  background: linear-gradient(90deg, rgba(232, 155, 45, 0.2), rgba(232, 155, 45, 0.1));
-  color: #B57520;
+  background: linear-gradient(90deg, rgba(232, 147, 18, 0.2), rgba(232, 147, 18, 0.1));
+  color: var(--dorado-dark);
 }
