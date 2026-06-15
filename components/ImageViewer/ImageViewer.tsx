@@ -31,6 +31,8 @@ export default function ImageViewer({
   const [isDragging, setIsDragging] = useState(false)
   const [isDraggingZoom, setIsDraggingZoom] = useState(false)
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
+  const pinchStartDistance = useRef<number | null>(null)
+  const pinchStartZoom = useRef(1)
   const dragStart = useRef({ x: 0, y: 0 })
   const positionRef = useRef({ x: 0, y: 0 })
   const imageRef = useRef<HTMLDivElement>(null)
@@ -96,12 +98,25 @@ export default function ImageViewer({
   }
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    if (zoomLevel > 1 && e.touches.length === 1) {
+    if (e.touches.length === 2) {
+      e.preventDefault()
+      e.stopPropagation()
+      const distance = getTouchDistance(e.touches[0], e.touches[1])
+      pinchStartDistance.current = distance
+      pinchStartZoom.current = zoomLevel
+      setIsDragging(false)
+    } else if (zoomLevel > 1 && e.touches.length === 1) {
       e.preventDefault()
       e.stopPropagation()
       setIsDragging(true)
       dragStart.current = { x: e.touches[0].clientX - positionRef.current.x, y: e.touches[0].clientY - positionRef.current.y }
     }
+  }
+
+  const getTouchDistance = (t1: React.Touch | Touch, t2: React.Touch | Touch) => {
+    const dx = t1.clientX - t2.clientX
+    const dy = t1.clientY - t2.clientY
+    return Math.sqrt(dx * dx + dy * dy)
   }
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -119,7 +134,17 @@ export default function ImageViewer({
   }
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (isDragging && zoomLevel > 1 && e.touches.length === 1) {
+    if (e.touches.length === 2 && pinchStartDistance.current !== null) {
+      e.preventDefault()
+      e.stopPropagation()
+      const distance = getTouchDistance(e.touches[0], e.touches[1])
+      const scale = distance / pinchStartDistance.current
+      const newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, pinchStartZoom.current * scale))
+      setZoomLevel(newZoom)
+      if (newZoom === 1) {
+        setPosition({ x: 0, y: 0 })
+      }
+    } else if (isDragging && zoomLevel > 1 && e.touches.length === 1) {
       const newX = e.touches[0].clientX - dragStart.current.x
       const newY = e.touches[0].clientY - dragStart.current.y
 
@@ -136,8 +161,11 @@ export default function ImageViewer({
     setIsDragging(false)
   }
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (e?: React.TouchEvent) => {
     setIsDragging(false)
+    if (e && e.touches.length < 2) {
+      pinchStartDistance.current = null
+    }
   }
 
   const handleContainerTouchStart = (e: React.TouchEvent) => {
@@ -298,41 +326,41 @@ export default function ImageViewer({
                     draggable={false}
                   />
                 </div>
+
+                <div
+                  className={styles.zoomBar}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div
+                    className={styles.zoomTrack}
+                    ref={zoomTrackRef}
+                    onClick={handleZoomTrackClick}
+                    onMouseDown={(e) => {
+                      if (e.target === zoomTrackRef.current) {
+                        handleZoomTrackInteraction(e.clientX)
+                      }
+                    }}
+                  >
+                    <div
+                      className={styles.zoomIndicator}
+                      style={{
+                        left: `${zoomPercentage}%`,
+                        cursor: isDraggingZoom ? 'grabbing' : 'grab',
+                      }}
+                      onMouseDown={handleZoomIndicatorMouseDown}
+                      onTouchStart={handleZoomIndicatorTouchStart}
+                      onClick={(e) => e.stopPropagation()}
+                      role="slider"
+                      aria-label="Control de zoom"
+                      aria-valuemin={MIN_ZOOM}
+                      aria-valuemax={MAX_ZOOM}
+                      aria-valuenow={zoomLevel}
+                    />
+                  </div>
+                  <span className={styles.zoomLabel}>{Math.round(zoomLevel * 100)}%</span>
+                </div>
               </div>
             </motion.div>
-
-            <div
-              className={styles.zoomBar}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div
-                className={styles.zoomTrack}
-                ref={zoomTrackRef}
-                onClick={handleZoomTrackClick}
-                onMouseDown={(e) => {
-                  if (e.target === zoomTrackRef.current) {
-                    handleZoomTrackInteraction(e.clientX)
-                  }
-                }}
-              >
-                <div
-                  className={styles.zoomIndicator}
-                  style={{
-                    left: `${zoomPercentage}%`,
-                    cursor: isDraggingZoom ? 'grabbing' : 'grab',
-                  }}
-                  onMouseDown={handleZoomIndicatorMouseDown}
-                  onTouchStart={handleZoomIndicatorTouchStart}
-                  onClick={(e) => e.stopPropagation()}
-                  role="slider"
-                  aria-label="Control de zoom"
-                  aria-valuemin={MIN_ZOOM}
-                  aria-valuemax={MAX_ZOOM}
-                  aria-valuenow={zoomLevel}
-                />
-              </div>
-              <span className={styles.zoomLabel}>{Math.round(zoomLevel * 100)}%</span>
-            </div>
 
             <button
               className={styles.closeBtn}
@@ -350,50 +378,52 @@ export default function ImageViewer({
 
             {images.length > 1 && (
               <>
-                <button
-                  className={`${styles.navBtn} ${styles.navBtnPrev}`}
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    onPrev()
-                  }}
-                  aria-label="Imagen anterior"
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="15 18 9 12 15 6" />
-                  </svg>
-                </button>
-
-                <button
-                  className={`${styles.navBtn} ${styles.navBtnNext}`}
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    onNext()
-                  }}
-                  aria-label="Siguiente imagen"
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                </button>
-
                 <div className={styles.counter}>
                   <span className={styles.counterCurrent}>{currentIndex + 1}</span>
                   <span className={styles.counterDivider}>/</span>
                   <span className={styles.counterTotal}>{images.length}</span>
                 </div>
 
-                <div className={styles.dots}>
-                  {images.map((_, idx) => (
-                    <button
-                      key={idx}
-                      className={`${styles.dot} ${idx === currentIndex ? styles.dotActive : ''}`}
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        if (idx !== currentIndex) onNext()
-                      }}
-                      aria-label={`Ir a imagen ${idx + 1}`}
-                    />
-                  ))}
+                <div className={styles.dotsRow}>
+                  <button
+                    className={`${styles.navBtn} ${styles.navBtnPrevMobile}`}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      onPrev()
+                    }}
+                    aria-label="Imagen anterior"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                  </button>
+
+                  <div className={styles.dots}>
+                    {images.map((_, idx) => (
+                      <button
+                        key={idx}
+                        className={`${styles.dot} ${idx === currentIndex ? styles.dotActive : ''}`}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          if (idx !== currentIndex) onNext()
+                        }}
+                        aria-label={`Ir a imagen ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                  <button
+                    className={`${styles.navBtn} ${styles.navBtnNextMobile}`}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      onNext()
+                    }}
+                    aria-label="Siguiente imagen"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </button>
                 </div>
               </>
             )}
