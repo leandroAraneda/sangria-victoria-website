@@ -332,6 +332,10 @@
     padding: var(--space-16) 0;
   }
 
+  .section::after {
+    display: none;
+  }
+
   .container {
     padding: 0 var(--space-4);
   }
