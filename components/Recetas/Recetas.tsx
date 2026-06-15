@@ -41,8 +41,7 @@ export default function Recetas() {
         <div className={styles.layout}>
           {/* Recipe Grid */}
           <div
-            className={styles.grid}
-            style={{ flexBasis: selectedId ? 'calc(100% - 420px)' : '100%' }}
+            className={`${styles.grid} ${selectedId ? styles.gridCompact : ''}`}
             role="list"
           >
             {recipes.map((recipe, idx) => (
