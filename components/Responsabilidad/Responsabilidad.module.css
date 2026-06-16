@@ -157,7 +157,37 @@
 
 @media (max-width: 640px) {
   .pillarsGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .pillar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-2);
+    padding: var(--space-3);
+  }
+
+  .pillarIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .pillarIcon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .pillarTitle {
+    font-size: 0.875rem;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .pillarText {
+    font-size: 0.75rem;
+    line-height: 1.4;
   }
 
   .ageWarning {

@@ -85,6 +85,25 @@
   border-color: rgba(232, 147, 18, 0.5);
 }
 
+/* Header transparente (sobre el hero oscuro) — el texto debe ser claro
+   en ambos temas porque el hero siempre tiene fondo oscuro */
+[data-theme="light"] .transparent .logoSub {
+  color: #E4CBBB;
+}
+
+[data-theme="light"] .transparent .menuLine {
+  background-color: #E4CBBB;
+}
+
+[data-theme="light"] .transparent .cartBtn {
+  color: #E4CBBB;
+}
+
+[data-theme="light"] .transparent .themeToggle {
+  color: #E4CBBB;
+  border-color: rgba(213, 158, 82, 0.4);
+}
+
 .container {
   display: flex;
   align-items: center;

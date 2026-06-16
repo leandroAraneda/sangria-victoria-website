@@ -525,7 +525,22 @@
   }
 
   .relatedGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .relatedInfo {
+    padding: var(--space-3);
+  }
+
+  .relatedName {
+    font-size: 0.8125rem;
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+
+  .relatedPrice {
+    font-size: 0.75rem;
   }
 
   .buyBlock {

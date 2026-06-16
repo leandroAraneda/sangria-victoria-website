@@ -302,6 +302,58 @@
   .typeFilters {
     width: 100%;
   }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .card {
+    padding: var(--space-3);
+    gap: var(--space-2);
+  }
+
+  .typeBadge {
+    font-size: 0.625rem;
+    padding: 2px 6px;
+  }
+
+  .cityBadge {
+    font-size: 0.625rem;
+    padding: 2px 6px;
+  }
+
+  .distName {
+    font-size: 0.8125rem;
+    line-height: 1.2;
+  }
+
+  .distInfo {
+    gap: 4px;
+  }
+
+  .infoRow {
+    font-size: 0.6875rem;
+    gap: 4px;
+    line-height: 1.3;
+  }
+
+  .infoRow svg {
+    width: 12px;
+    height: 12px;
+    margin-top: 1px;
+  }
+
+  .mapBtn {
+    font-size: 0.625rem;
+    padding: 5px 10px;
+    letter-spacing: 0.05em;
+  }
+
+  .mapBtn svg {
+    width: 12px;
+    height: 12px;
+  }
 }
 
 /* Light mode styles — Paleta tropical cálida */
